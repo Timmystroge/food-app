@@ -454,9 +454,9 @@ a:hover {
     right: 18px;
     color: white;
     cursor: pointer;
-    border: 1px solid rgba(255, 255, 255, 0.305);
+/*     border: 1px solid rgba(255, 255, 255, 0.305);
     padding: 2px 7px;
-    border-radius: 50%;
+    border-radius: 50%; */
   }
 
   /*  */
