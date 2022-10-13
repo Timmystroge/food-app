@@ -45,7 +45,7 @@ a:hover {
   width: 100%;
   z-index: 99;
   background: var(--mainColor);
-  border: 1px solid red;
+ /* ? border: 1px solid red; */ 
 }
 
 .nav {
@@ -331,7 +331,8 @@ a:hover {
 }
 .mt-20 {
   margin-top: 5.7rem;
-  border: 1px solid red;
+  /* ? border: 1px solid red; */
+  
 }
 
 /* ? Media Queries */
