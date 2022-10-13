@@ -4,8 +4,8 @@ import { Link } from 'react-router-dom'
 const RegisterPage = () => {
   return (
     <div>
-      Register Page
-      <div>
+      Register Page - Work in progress
+      <div className="">
           <ul>
             <li>
               <Link to="/">Home</Link>

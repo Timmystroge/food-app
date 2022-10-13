@@ -1,10 +1,11 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React from "react";
+import { Link } from "react-router-dom";
 
 const LoginPage = () => {
   return (
     <div>
-        <div className="">
+      LoginPage - Work in progress
+      <div className="">
         <div>
           <img src="" alt="" />
         </div>
@@ -13,15 +14,16 @@ const LoginPage = () => {
             <li>
               <Link to="/">Home</Link>
             </li>
-           
+
             <li>
               <Link to="/signup">Sign up</Link>
             </li>
           </ul>
         </div>
       </div>
-      LoginPage</div>
-  )
-}
+      
+    </div>
+  );
+};
 
-export default LoginPage
+export default LoginPage;

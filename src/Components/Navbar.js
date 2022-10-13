@@ -1,9 +1,25 @@
-import React, {  } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import logo from "../assets/icons/logo/logo.svg";
 
 const Navbar = () => {
- 
+  const [hamburger, close] = useState(true);
+  const toggle = () => {
+    if (hamburger) {
+      let menu = document.querySelector('.dropdown-content');
+      menu.classList.add('active');
+      menu.style.display = 'block';
+    }
+  };
+  // close menu
+  const toggleClose = () => {
+    if (close) {
+      let menu = document.querySelector('.dropdown-content');
+      menu.classList.remove('active');
+      menu.style.display = 'none';
+    }
+  };
+
   return (
     <div className="nav-bar">
       <div className="container nav">
@@ -13,7 +29,7 @@ const Navbar = () => {
           </Link>
         </div>
         <div>
-          <ul class="nav-links">
+          <ul className="nav-links">
             <li>
               <Link to="/" className="active">
                 Home
@@ -29,7 +45,7 @@ const Navbar = () => {
             </li>
           </ul>
         </div>
-        <div className="hamburger">
+        <div className="hamburger" onClick={toggle}>
           <div></div>
           <div></div>
           <div></div>
@@ -37,7 +53,8 @@ const Navbar = () => {
       </div>
       {/* ? mobile menu */}
 
-      <div className="drop-down">
+      <div className="dropdown-content">
+      <span className="close" onClick={toggleClose}>x</span>
         <ul>
           <li>
             <Link to="/" className="active">

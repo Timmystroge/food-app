@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Navbar from "../Navbar";
-// import { Link } from 'react-router-dom'
+import { Link } from "react-router-dom";
 import productImg from "../../assets/img/productImg.svg";
 import googleplay from "../../assets/icons/googleplay.svg";
 import appstore from "../../assets/icons/appstore.svg";
@@ -9,27 +9,17 @@ import specialdish1 from "../../assets/img/specialdish1.svg";
 import specialdish2 from "../../assets/img/specialdish2.svg";
 import specialdish3 from "../../assets/img/specialdish3.svg";
 import Footer from "../reuseable/Footer";
-import { Link } from "react-router-dom";
+import Main from "../../assets/script/Main";
 
 const LandingPage = () => {
-  const [message] = useState("This Page is not availabel yet!");
+  const [message] = useState("This Page is not available yet!");
   const warning = () => {
     alert(message);
   };
   useEffect(() => {
     // getting emails from notify-form
-    let notifyForm = document.querySelector(".notify-form");
-    const getDets = () => {
-      notifyForm.addEventListener("submit", (e) => {
-        e.preventDefault();
-        let userEmail = notifyForm.email.value;
-        let details = [{ email: userEmail, form: "Notify Form" }];
-        localStorage.setItem(userEmail, JSON.stringify(details));
-        console.log(userEmail);
-        notifyForm.reset();
-      });
-    };
-    getDets();
+    Main();
+
   }, []);
 
   return (
