@@ -1,0 +1,685 @@
+/*--------------------------*/
+/*----- CSS RESET -----*/
+/*--------------------------*/
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,500;0,600;0,700;1,500&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+  list-style: none;
+}
+::-webkit-scrollbar {
+  display: none;
+}
+/* ? variables  */
+:root {
+  --mainColor: #00302e;
+  --textHeader: #e2b887;
+  --textColor: #ffffff;
+  --footerCOlor: #0b0d17;
+  --mainfont: "Poppins", sans-serif;
+}
+body {
+  font-family: "Poppins", sans-serif;
+  overflow-x: hidden;
+  background: var(--mainColor);
+}
+a,
+a:link,
+a:visited,
+a:active {
+  color: var(--textColor);
+  text-decoration: none;
+  transition: all 0.2s ease-in;
+}
+a:hover {
+  color: var(--textHeader);
+}
+/* ? Navbar */
+.nav-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 99;
+  background: var(--mainColor);
+  border: 1px solid red;
+}
+
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.nav-links {
+  display: flex;
+}
+.nav-links > li {
+  margin-left: 25px;
+  font-weight: 500;
+  font-size: 14px;
+}
+.active {
+  color: var(--textHeader) !important;
+}
+
+.sign-up {
+  background: var(--textHeader);
+  padding: 8px 20px;
+  font-size: 13px;
+  color: var(--mainColor) !important;
+  border-radius: 7px;
+  transition: all 0.5s ease-in;
+}
+.sign-up:hover {
+  color: var(--textColor) !important;
+}
+.logo-wrapper {
+  width: 100px;
+  padding: 15px 0;
+}
+.logo {
+  width: 130%;
+}
+
+.drop-down,
+.hamburger {
+  display: none;
+}
+
+/* ? landingPage */
+.product-page {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 100px 0;
+}
+.product-page .product-desc {
+  text-align: left;
+  width: 55%;
+}
+.product-page .product-img {
+  width: 45%;
+}
+.productImg {
+  width: 62%;
+  box-shadow: 0 0 5px var(--textHeader);
+  border-radius: 50%;
+  position: relative;
+  left: 30px;
+}
+.productImg:hover {
+  cursor: pointer;
+}
+/* desc */
+.product-desc h2 {
+  color: var(--textColor);
+}
+.product-desc h2,
+.product-desc p {
+  font-family: var(--mainfont);
+}
+.product-desc h2 {
+  font-weight: 500;
+  font-size: 38px;
+  letter-spacing: 2px;
+  width: 600px;
+  margin-bottom: 20px;
+}
+.product-desc p {
+  color: rgba(255, 255, 255, 0.74);
+  font-weight: 400;
+  font-style: normal;
+  width: 550px;
+  font-size: 14px;
+}
+.product-desc span {
+  color: var(--textHeader);
+}
+/* getapp */
+.getapp {
+  position: relative;
+  margin-top: 22px;
+}
+.getapp .googleplay {
+  margin-right: 15px;
+}
+/* special meal */
+.specialmeal {
+  position: relative;
+  margin: 35px 0;
+}
+
+.specialmeal .headline h2 {
+  color: rgba(255, 255, 255, 0.87);
+  margin-bottom: 20px;
+}
+.specialmeal .headline p {
+  width: 40%;
+  margin: 0 auto;
+  color: rgba(255, 255, 255, 0.87);
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+
+.dishes-img-wrapper {
+  width: 180px;
+  overflow: hidden;
+  margin: 0 auto;
+}
+.dishes-img-wrapper .dish-img {
+  width: 100%;
+}
+.dishes {
+  padding: 70px 0;
+}
+.dishes .dishes-wrapper {
+  display: flex;
+  justify-content: space-between;
+}
+.details {
+  margin-top: 20px;
+}
+.details h4 {
+  color: var(--textHeader);
+}
+.details p {
+  color: rgba(255, 255, 255, 0.737);
+  width: 70%;
+  margin: 5px auto 0;
+  font-size: 14px;
+}
+/*  get notified  */
+.get-notified {
+  margin-top: 100px;
+  margin-bottom: 90px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 70px;
+}
+.get-notified .notify-detail {
+  text-align: left;
+}
+.get-notified .notify-detail h3 {
+  font-family: calibri;
+  color: var(--textHeader);
+  font-weight: 700;
+  font-size: 26px;
+  margin-bottom: 15px;
+}
+.get-notified .notify-detail p {
+  font-family: calibri;
+  color: rgba(255, 255, 255, 0.95);
+  font-weight: normal;
+  font-size: 18px;
+  width: 72%;
+}
+
+.notify-cta {
+  width: 40%;
+}
+.get-notified .notify-cta form {
+  display: flex;
+  flex-direction: column;
+}
+.get-notified .notify-cta form input {
+  padding: 15px 10px;
+  width: 100%;
+  margin-bottom: 10px;
+  outline: none;
+  border-radius: 4px;
+  border: none;
+}
+.get-notified .notify-cta form button {
+  padding: 12px 30px;
+  background: var(--textHeader);
+  border-radius: 4px;
+  border: none;
+  color: var(--mainColor);
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.1s ease-in;
+}
+.get-notified .notify-cta form button:hover {
+  background: #d2a776;
+}
+/* footer */
+.footer {
+  background: var(--footerCOlor);
+  width: 100%;
+  position: relative;
+  margin-top: 10rem;
+  padding: 0px 70px;
+  border-bottom: 1px solid #ffffff2e;
+}
+.footer .container {
+  background: var(--footerCOlor) !important;
+}
+.footer-items {
+  display: flex;
+  justify-content: space-between;
+  width: 90%;
+  padding: 50px 0;
+}
+.footer-items .company,
+.footer-items .support,
+.footer-items .legal,
+.footer-items .installapp {
+  text-align: left;
+}
+.footer-items .company h4,
+.footer-items .support h4,
+.footer-items .legal h4,
+.footer-items .installapp h4 {
+  color: #f4f5f7;
+  margin-bottom: 20px;
+}
+.footer-items .company ul a,
+.footer-items .support ul a,
+.footer-items .legal ul a {
+  font-family: calibri;
+  color: #dadce2;
+  font-size: 18px;
+  margin: 10px 0;
+}
+.footer-items .company ul a li,
+.footer-items .support ul a li,
+.footer-items .legal ul a li,
+.footer-items .installapp ul a li {
+  margin: 10px 0;
+}
+.footer-items .company ul a:hover,
+.footer-items .support ul a:hover,
+.footer-items .legal ul a:hover {
+  color: var(--textHeader);
+}
+
+.footer-copywrite {
+  padding: 20px 70px;
+  background: var(--footerCOlor);
+}
+.footer-copywrite .container {
+  background: var(--footerCOlor) !important;
+}
+.copywrite-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.copywrite-wrapper .copywrite h5{
+  color: #D9DBE1;
+  font-weight: 500;
+  font-family: calibri;
+  font-size: 18px;
+}
+.socials ul {
+  display: flex;
+}
+.socials ul a li {
+  margin: 0 15px;
+}
+
+/*? Bootstrap CLasses */
+.container {
+  max-width: 93%;
+  background: var(--mainColor);
+  margin: 0 auto;
+  padding: 0 4px;
+}
+.mt-20 {
+  margin-top: 5.7rem;
+  border: 1px solid red;
+}
+
+/* ? Media Queries */
+@media (max-width: 1023px) {
+  .product-desc p {
+    width: 90%;
+  }
+  .get-notified .notify-cta form {
+    display: flex;
+    flex-direction: column;
+  }
+  /*  get notified  */
+  .get-notified {
+    padding: 0 0;
+  }
+  .get-notified .notify-cta form input {
+    padding: 12px 10px;
+  }
+  .get-notified .notify-cta form button {
+    padding: 10px 10px;
+  }
+  /* footer */
+  .footer {
+    padding: 0 30px;
+  }
+  .footer-items {
+    width: 100%;
+    padding: 50px 0;
+  }
+  .copywrite-wrapper {
+    flex-direction: column;
+  }
+  .copywrite-wrapper .copywrite h5{
+    width: 70%;
+    margin: 0 auto;
+    font-size: 16px;
+  }
+  .socials {
+    margin-top: 20px;
+  }
+  .socials img {
+    width: 32px;
+  }
+  .socials ul a li {
+    margin: 0 10px;
+  }
+}
+@media (max-width: 767px) {
+  .container {
+    max-width: 94%;
+  }
+  .nav-links {
+    display: none;
+  }
+  .logo-wrapper {
+    width: 80px;
+    padding: 10px 0;
+  }
+  .hamburger {
+    display: block;
+    position: relative;
+    cursor: pointer;
+  }
+
+  .hamburger div {
+    width: 25px;
+    height: 2px;
+    margin: 5px 0;
+    background: var(--textColor);
+    border-radius: 10px;
+  }
+
+  .drop-down ul {
+    width: 100%;
+    position: fixed;
+    height: 100vh;
+    background: #001717;
+    text-align: center;
+    z-index: 9;
+    top: 80px;
+    left: 100%;
+  }
+  .drop-down ul li {
+    display: block;
+    margin: 50px 0;
+    line-height: 30px;
+  }
+  /*  */
+  .product-page .product-desc {
+    width: 100%;
+  }
+  .product-page .product-img {
+    display: none;
+  }
+  .product-desc h2 {
+    width: 100%;
+    font-size: 3rem;
+  }
+  .product-desc p {
+    width: 80%;
+  }
+
+  /*  */
+  .specialmeal .headline h2 {
+    margin-bottom: 15px;
+  }
+  .specialmeal .headline p {
+    width: 80%;
+    font-size: 13px;
+    margin-bottom: 20px;
+  }
+  .dishes {
+    padding: 20px 0;
+  }
+  .dishes .dishes-wrapper {
+    display: flex;
+    flex-direction: column;
+  }
+  .dishes .dish {
+    margin: 30px 0;
+  }
+  .dishes-img-wrapper {
+    width: 200px;
+  }
+  .details {
+    margin-top: 20px;
+  }
+  /*  */
+  .get-notified {
+    flex-direction: column;
+  }
+  .get-notified .notify-detail {
+    text-align: center;
+  }
+  .get-notified .notify-detail h3 {
+    font-size: 24px;
+    margin-bottom: 15px;
+  }
+  .get-notified .notify-detail p {
+    font-size: 16px;
+    width: 80%;
+    margin: 0 auto;
+  }
+  .notify-cta {
+    margin-top: 30px;
+    width: 70%;
+  }
+  .get-notified .notify-cta form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .get-notified .notify-cta form input {
+    padding: 15px 10px;
+    width: 90%;
+    margin-right: 0;
+    outline: none;
+    border-radius: 4px;
+    border: none;
+  }
+  .get-notified .notify-cta form button {
+    margin: 0;
+    width: 50%;
+    padding: 15px 0px;
+  }
+  /* footer */
+  .footer-items {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+  }
+  .footer-items .company,
+  .footer-items .support,
+  .footer-items .legal,
+  .footer-items .installapp {
+    text-align: center;
+  }
+
+  .footer-items .company,
+  .footer-items .support,
+  .footer-items .legal,
+  .footer-items .installapp {
+    margin: 30px 0;
+  }
+  .footer-items .installapp ul {
+    display: flex;
+  }
+  .footer-items .installapp ul a li {
+    padding: 0 10px;
+  }
+  .copywrite-wrapper .copywrite h5{
+    width: 90%;
+  }
+ 
+}
+@media (max-width: 479px) {
+  .product-desc h2 {
+    font-size: 2.5rem;
+  }
+  .product-desc p {
+    width: 100%;
+  }
+  .dishes {
+    padding: 15px 0;
+  }
+  .dishes .dish {
+    margin: 20px 0;
+  }
+  /*  */
+  .notify-cta {
+    margin-top: 20px;
+    width: 100%;
+  }
+  .get-notified .notify-detail h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+  .get-notified .notify-detail p {
+    font-size: 14px;
+    width: 70%;
+    margin: 0 auto;
+  }
+
+  .get-notified .notify-cta form input {
+    padding: 13px 10px;
+  }
+  .get-notified .notify-cta form button {
+    width: 30%;
+    padding: 12px 0px;
+  }
+  /* footer */
+  .copywrite-wrapper .copywrite h5{
+    width: 100%;
+    margin: 0 auto;
+    font-size: 16px;
+  }
+ 
+}
+@media (max-width: 425px) {
+  .product-desc h2 {
+    font-size: 2rem;
+  }
+  .specialmeal .headline p {
+    width: 85%;
+    font-size: 12px;
+  }
+
+  .dishes-img-wrapper {
+    width: 180px;
+  }
+  .details p {
+    width: 85%;
+    margin: 5px auto 0;
+    font-size: 14px;
+  }
+  /* footer */
+  .footer-items .company,
+  .footer-items .support,
+  .footer-items .legal,
+  .footer-items .installapp {
+    margin: 20px 0;
+  }
+  .footer-items .installapp ul {
+    display: flex;
+    flex-direction: column;
+  }
+  .footer-items .installapp ul a li {
+    padding: 10[x ] 0;
+  }
+  .footer-copywrite {
+    padding: 20px 0px;
+  }
+}
+@media (max-width: 375px) {
+  .product-desc h2 {
+    font-size: 1.8rem;
+  }
+  /*  */
+  .get-notified {
+    margin-top: 80px;
+  }
+  .get-notified .notify-detail h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+  .get-notified .notify-detail p {
+    font-size: 14px;
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  .get-notified .notify-cta form input {
+    padding: 13px 10px;
+    width: 100%;
+  }
+  .get-notified .notify-cta form button {
+    width: 50%;
+    padding: 12px 0px;
+  }
+  /* footer */
+  .footer-items .company h4,
+  .footer-items .support h4,
+  .footer-items .legal h4,
+  .footer-items .installapp h4 {
+    margin-bottom: 15px;
+    font-size: 14px;
+  }
+  .footer-items .company ul a,
+  .footer-items .support ul a,
+  .footer-items .legal ul a {
+    font-size: 16px;
+    margin: 10px 0;
+  }
+  .copywrite-wrapper .copywrite h5{
+    font-size: 14px;
+  }
+
+  .socials img {
+    width: 30px;
+  }
+
+}
+@media (max-width: 320px) {
+  .product-desc h2 {
+    font-size: 1.4rem;
+  }
+  .specialmeal .headline h2 {
+    width: 100%;
+    font-size: 16px;
+  }
+  .specialmeal .headline p {
+    width: 100%;
+    font-size: 11px;
+  }
+  .dishes-img-wrapper {
+    width: 160px;
+  }
+  .details {
+    margin-top: 10px;
+  }
+  .dishes .dish {
+    margin: 25px 0;
+  }
+  .details p {
+    width: 90%;
+    font-size: 12px;
+  }
+}
+@media (max-width: 280px) {
+}
