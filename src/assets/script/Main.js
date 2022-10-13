@@ -7,6 +7,7 @@ const Main = () => {
       let details = [{ email: userEmail, form: "Notify Form" }];
       localStorage.setItem(userEmail, JSON.stringify(details));
       console.log(userEmail);
+      alert('Success! We will notify you with this Email :)')
       notifyForm.reset();
     });
   };
