@@ -1,3 +1,4 @@
+// notify form @ landing page
 const Main = () => {
   let notifyForm = document.querySelector(".notify-form");
   const getDets = () => {
@@ -7,12 +8,51 @@ const Main = () => {
       let details = [{ email: userEmail, form: "Notify Form" }];
       localStorage.setItem(userEmail, JSON.stringify(details));
       console.log(userEmail);
-      alert('Success! We will notify you with this Email :)')
+      alert("Success! We will notify you with this Email :)");
       notifyForm.reset();
     });
   };
   getDets();
- 
+};
+
+//toggle show and hide
+export const ToggleShowHide = () => {
+  let password = document.querySelector("#password");
+  let togglecontext = document.querySelector(".toggleText2");
+  if (password.getAttribute("type") === "password") {
+    password.setAttribute("type", "text");
+    togglecontext.textContent = "hide";
+  } else {
+    password.setAttribute("type", "password");
+    togglecontext.textContent = "show";
+  }
+};
+
+//validate email
+export const ValidateEmail = (formField) => {
+  let registerForm = formField;
+  let feedback = document.querySelector(".feedback");
+  registerForm.email.addEventListener("keyup", (e) => {
+    e.preventDefault();
+    let formEmail = registerForm.email.value;
+    if (formEmail.includes("@")) {
+      // console.log('valid');
+      feedback.style.color = "green";
+      feedback.textContent = "Valid";
+    } else {
+      // console.log('not valid');
+      feedback.style.color = "red";
+      feedback.textContent = "@ missing";
+    }
+  });
+};
+
+// copyrightYear
+export const CopyrightYear = () => {
+  const copy = document.querySelector(".year");
+  let now = new Date();
+  let year = now.getFullYear();
+  copy.textContent = year;
 };
 
 export default Main;

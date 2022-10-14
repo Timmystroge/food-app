@@ -12,6 +12,7 @@ import Footer from "../reuseable/Footer";
 import Main from "../../assets/script/Main";
 
 const LandingPage = () => {
+  // links clicked
   const [message] = useState("This Page is not available yet!");
   const warning = () => {
     alert(message);
@@ -19,7 +20,6 @@ const LandingPage = () => {
   useEffect(() => {
     // getting emails from notify-form
     Main();
-
   }, []);
 
   return (

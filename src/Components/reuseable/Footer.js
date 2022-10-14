@@ -1,25 +1,28 @@
-import React, {useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import googleplay from "../../assets/icons/googleplay.svg";
 import appstore from "../../assets/icons/appstore.svg";
 import instagram from "../../assets/icons/instagram.svg";
 import twitter from "../../assets/icons/twitter.svg";
 import youtube from "../../assets/icons/youtube.svg";
 import { Link } from "react-router-dom";
+import { CopyrightYear } from "../../assets/script/Main";
+
 const Footer = () => {
-  const [message] = useState("This Page is not availabel yet!");
-  const [socialmessage] = useState("Link to this page not active yet!");
+  // links clicked
+  const [message] = useState("This Page is not available yet!");
+  const [socialmessage] = useState("Link to this page is not active yet!");
   const warning = () => {
     alert(message);
   };
   const socialWarning = () => {
-    alert(socialmessage)
-  }
+    alert(socialmessage);
+  };
+
+  // copyright year
   useEffect(() => {
-    const copy = document.querySelector(".year");
-    let now = new Date();
-    let year = now.getFullYear();
-    copy.textContent = year;
+    CopyrightYear();
   }, []);
+
   return (
     <div>
       <footer>
@@ -91,7 +94,7 @@ const Footer = () => {
             <div className="copywrite-wrapper">
               <div className="copywrite">
                 <h5>
-                  Copywrite © <span className="year"></span> LILIES, All rights
+                  Copyright © <span className="year"></span> LILIES, All rights
                   reserved | Designed & Developed By{" "}
                   <a href="https://timmyoyetola.tmtech.com.ng">TMtechnology</a>
                 </h5>
