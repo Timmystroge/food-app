@@ -584,6 +584,12 @@ a:hover {
     right: 18px;
     color: white;
     cursor: pointer;
+<<<<<<< HEAD
+=======
+/*     border: 1px solid rgba(255, 255, 255, 0.305);
+    padding: 2px 7px;
+    border-radius: 50%; */
+>>>>>>> 7882f84c82904dc5381ec529ab3ed28011112bde
   }
 
   /*  */
