@@ -47,6 +47,30 @@ export const ValidateEmail = (formField) => {
   });
 };
 
+export const DashboardMenuToggle = () => {
+  // dashboard menu Toggle (show and hide)
+  const menu = document.querySelector(".navbar__burger");
+  let navMenu = document.querySelector(".show__nav-menubar");
+  let menuBar = document.querySelector(".menu__bar");
+  menu.addEventListener("click", () => {
+    navMenu.style.display = "block";
+    menuBar.style.left = "0";
+  });
+  navMenu.addEventListener("click", (e) => {
+    // console.log(e.target);
+    if (
+      e.target.className === "show__nav-menubar" ||
+      e.target.className === "menubar__toggle"
+    ) {
+      navMenu.style.display = "none";
+      menuBar.style.left = "-100%";
+    } else {
+      navMenu.style.display = "block";
+      menuBar.style.left = "0";
+    }
+  });
+};
+
 // copyrightYear
 export const CopyrightYear = () => {
   const copy = document.querySelector(".year");

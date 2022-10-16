@@ -14,7 +14,7 @@ const Nav = () => {
       <nav id="navbar__menu">
         <div className="navbar__nav">
           <div className="dashbaord__logo-wrapper">
-            <Link to="/">
+            <Link to="#">
               <img src={logo} alt="logo" className="logo" />
             </Link>
           </div>

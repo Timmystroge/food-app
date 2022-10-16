@@ -576,7 +576,18 @@ a:hover {
     top: 0;
     left: -100%;
     opacity: 0;
-    transition: all 0.3s;
+    transition: all 0.5 ease;
+    animation-name: slidein;
+    animation-duration: 500ms;
+  }
+ 
+  @keyframes slidein {
+    from {
+      left: -100%;
+    }
+    to {
+      left: -0;
+    }
   }
   .active {
     opacity: 1;
@@ -592,7 +603,7 @@ a:hover {
     margin: 40px 0;
   }
   .dropdown-content span {
-    position: fixed;
+    position: absolute;
     top: 20px;
     right: 18px;
     color: white;
