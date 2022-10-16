@@ -6,17 +6,17 @@ const Navbar = () => {
   const [hamburger, close] = useState(true);
   const toggle = () => {
     if (hamburger) {
-      let menu = document.querySelector('.dropdown-content');
-      menu.classList.add('active');
-      menu.style.display = 'block';
+      let menu = document.querySelector(".dropdown-content");
+      menu.classList.add("active");
+      menu.style.display = "block";
     }
   };
   // close menu
   const toggleClose = () => {
     if (close) {
-      let menu = document.querySelector('.dropdown-content');
-      menu.classList.remove('active');
-      menu.style.display = 'none';
+      let menu = document.querySelector(".dropdown-content");
+      menu.classList.remove("active");
+      menu.style.display = "none";
     }
   };
 
@@ -54,7 +54,9 @@ const Navbar = () => {
       {/* ? mobile menu */}
 
       <div className="dropdown-content">
-      <span className="close" onClick={toggleClose}>x</span>
+        <span className="close" onClick={toggleClose}>
+          x
+        </span>
         <ul>
           <li>
             <Link to="/" className="active">

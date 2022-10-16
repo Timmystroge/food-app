@@ -41,6 +41,9 @@ const Footer = () => {
                   <Link to="#" onClick={warning}>
                     <li>Contact Us</li>
                   </Link>
+                  <Link to="/Components/Pages/dashboard/Dashboard">
+                    <li>Dashboard</li>
+                  </Link>
                 </ul>
               </div>
               <div className="support">
