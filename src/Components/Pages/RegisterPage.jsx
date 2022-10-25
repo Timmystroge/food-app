@@ -4,6 +4,47 @@ import registrationbg from "../../assets/img/registrationbg.svg";
 import { ToggleShowHide, ValidateEmail } from "../../assets/script/Main";
 
 const RegisterPage = () => {
+
+  // registration
+  let [userName, setUserName] = useState("");
+  let [userEmail, setUserEmail] = useState("");
+  let [userPassword, setUserPassword] = useState("");
+ 
+  // handle user registration
+  const handleUserRegistration = (e) => {
+    e.preventDefault();
+    class NewUser {
+      constructor(username, useremail, userpassword) {
+        this.name = username;
+        this.email = useremail;
+        this.password = userpassword;
+      }
+      registrationSuccess() {
+        console.log("user registered successfully");
+      }
+      registrationError() {
+        console.log("user registration failed");
+      }
+      registrationDuplicate() {
+        console.log("user with this email exist");
+      }
+    }
+    // create a new User
+    userEmail = new NewUser(userName, userEmail, userPassword);
+    // check if userEmail exist in storage
+    let existingUser = localStorage.getItem(userEmail.email);
+    // if user exist do this =>
+    if (existingUser) {
+      userEmail.registrationDuplicate();
+    } else {
+      localStorage.setItem(userEmail.email, JSON.stringify(userEmail));
+      userEmail.registrationSuccess();
+    }
+  };
+
+
+  //----------------------------------------------
+
   // toggle show and hide password
   const [toggleshowandhide] = useState(false);
   const toggleText = () => {
@@ -12,10 +53,14 @@ const RegisterPage = () => {
     }
   };
 
+  //----------------------------------------------
+
   // emailValidation
   useEffect(() => {
     ValidateEmail(document.querySelector("#registerform"));
   }, []);
+
+  //----------------------------------------------
 
   return (
     <div>
@@ -34,15 +79,16 @@ const RegisterPage = () => {
                 <h3>Welcome to Lilies!</h3>
               </div>
               <form
-                action=""
-                method="post"
                 className="loginform"
                 id="registerform"
+                onSubmit={handleUserRegistration}
               >
                 <input
                   type="text"
                   name="name"
                   id="name"
+                  value={userName}
+                  onChange={(e) => setUserName(e.target.value)}
                   placeholder="Your First Name"
                   required
                 />
@@ -52,6 +98,8 @@ const RegisterPage = () => {
                     type="email"
                     name="email"
                     id="email"
+                    value={userEmail}
+                    onChange={(e) => setUserEmail(e.target.value)}
                     placeholder="Your Email address"
                     required
                   />
@@ -66,13 +114,15 @@ const RegisterPage = () => {
                     type="password"
                     name="password"
                     id="password"
+                    value={userPassword}
+                    onChange={(e) => setUserPassword(e.target.value)}
                     placeholder="Your Password"
                     required
                   />
                 </div>
 
                 <div className="loginbtnwrapper">
-                  <button type="submit" id="registerbtn" disabled>
+                  <button type="submit" id="registerbtn">
                     SIGN UP
                   </button>
                 </div>

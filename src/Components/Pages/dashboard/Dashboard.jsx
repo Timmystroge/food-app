@@ -10,6 +10,63 @@ import profileicon from "../../../assets/icons/profileicon.svg";
 import ordersicon from "../../../assets/icons/ordersicon.svg";
 import carticon from "../../../assets/icons/carticon.svg";
 import { DashboardMenuToggle } from "../../../assets/script/Main";
+import dish1 from "../../../assets/img/dish1.svg";
+import dish2 from "../../../assets/img/dish2.svg";
+import dish3 from "../../../assets/img/dish3.svg";
+import dish4 from "../../../assets/img/dish4.svg";
+import dish5 from "../../../assets/img/dish5.svg";
+import dish6 from "../../../assets/img/dish6.svg";
+
+const data = [
+  {
+    id: 1,
+    img: dish1,
+    name: "Stir Fry Pasta",
+    details: "The in-house pasta and chicken by chef Mario",
+    price: "N1,000.00",
+    add: "Add to Cart",
+  },
+  {
+    id: 2,
+    img: dish2,
+    name: "Tasty Indomie",
+    details: "The in-house pasta and chicken by chef Luigi",
+    price: "N1,000.00",
+    add: "Add to Cart",
+  },
+  {
+    id: 3,
+    img: dish3,
+    name: "Veggie Meat",
+    details: "The in-house pasta and chicken by chef Yoshi",
+    price: "N1,000.00",
+    add: "Add to Cart",
+  },
+  {
+    id: 4,
+    img: dish4,
+    name: "Snail Soup",
+    details: "The in-house pasta and chicken by chef Ryu",
+    price: "N1,000.00",
+    add: "Add to Cart",
+  },
+  {
+    id: 5,
+    img: dish5,
+    name: "Rice Soup",
+    details: "The in-house pasta and chicken by chef Taj",
+    price: "N1,000.00",
+    add: "Add to Cart",
+  },
+  {
+    id: 6,
+    img: dish6,
+    name: "Stir Fry Pasta",
+    details: "The in-house pasta and chicken by chef Kin",
+    price: "N1,000.00",
+    add: "Add to Cart",
+  },
+];
 
 const Dashboard = () => {
   const [activeNav, setActiveNav] = useState("home");
@@ -89,38 +146,25 @@ const Dashboard = () => {
             </div>
             {/* products */}
             <div className="available__products">
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae
-                rerum iusto eaque quaerat expedita sint alias aut quos non
-                inventore! Minima provident ipsam consequatur totam veritatis
-                rerum fugit dolore suscipit libero voluptate repellat doloribus
-                officia voluptatum fugiat recusandae, cumque eaque quam dolores
-                ad dolor? Laboriosam vitae aperiam dolor a veniam.
-              </p>
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae
-                rerum iusto eaque quaerat expedita sint alias aut quos non
-                inventore! Minima provident ipsam consequatur totam veritatis
-                rerum fugit dolore suscipit libero voluptate repellat doloribus
-                officia voluptatum fugiat recusandae, cumque eaque quam dolores
-                ad dolor? Laboriosam vitae aperiam dolor a veniam.
-              </p>
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae
-                rerum iusto eaque quaerat expedita sint alias aut quos non
-                inventore! Minima provident ipsam consequatur totam veritatis
-                rerum fugit dolore suscipit libero voluptate repellat doloribus
-                officia voluptatum fugiat recusandae, cumque eaque quam dolores
-                ad dolor? Laboriosam vitae aperiam dolor a veniam.
-              </p>
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae
-                rerum iusto eaque quaerat expedita sint alias aut quos non
-                inventore! Minima provident ipsam consequatur totam veritatis
-                rerum fugit dolore suscipit libero voluptate repellat doloribus
-                officia voluptatum fugiat recusandae, cumque eaque quam dolores
-                ad dolor? Laboriosam vitae aperiam dolor a veniam.
-              </p>
+              <div className="available__product-wrapper">
+                {data.map(({ id, img, name, details, price, add }) => {
+                  return (
+                    <article key={id}>
+                      <div className="prod__img-wrapper">
+                        <img src={img} alt={name} />
+                      </div>
+                      <div className="prod__dets">
+                        <h2>{name}</h2>
+                        <p>{details}</p>
+                      </div>
+                      <div className="prod__price">
+                        <h3>{price}</h3>
+                        <h3>{add}</h3>
+                      </div>
+                    </article>
+                  );
+                })}
+              </div>
             </div>
           </div>
         </div>

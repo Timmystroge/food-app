@@ -57,7 +57,6 @@ export const DashboardMenuToggle = () => {
     menuBar.style.left = "0";
   });
   navMenu.addEventListener("click", (e) => {
-    // console.log(e.target);
     if (
       e.target.className === "show__nav-menubar" ||
       e.target.className === "menubar__toggle"
