@@ -4,15 +4,16 @@ import registrationbg from "../../assets/img/registrationbg.svg";
 import { ToggleShowHide, ValidateEmail } from "../../assets/script/Main";
 
 const RegisterPage = () => {
-
   // registration
+  let [pendingRegistration, setPendingRegistration] = useState(false);
   let [userName, setUserName] = useState("");
   let [userEmail, setUserEmail] = useState("");
   let [userPassword, setUserPassword] = useState("");
- 
+
   // handle user registration
   const handleUserRegistration = (e) => {
     e.preventDefault();
+    setPendingRegistration(true);
     class NewUser {
       constructor(username, useremail, userpassword) {
         this.name = username;
@@ -22,26 +23,29 @@ const RegisterPage = () => {
       registrationSuccess() {
         console.log("user registered successfully");
       }
-      registrationError() {
-        console.log("user registration failed");
+      registrationSuccesspopup() {
+        let msg = document.querySelector(".msg");
+        msg.style.display = "block";
       }
-      registrationDuplicate() {
-        console.log("user with this email exist");
+      dismissMsg() {
+        let msg = document.querySelector(".msg");
+        msg.style.display = "none";
       }
     }
     // create a new User
-    userEmail = new NewUser(userName, userEmail, userPassword);
-    // check if userEmail exist in storage
-    let existingUser = localStorage.getItem(userEmail.email);
-    // if user exist do this =>
-    if (existingUser) {
-      userEmail.registrationDuplicate();
-    } else {
-      localStorage.setItem(userEmail.email, JSON.stringify(userEmail));
-      userEmail.registrationSuccess();
-    }
+    let user = new NewUser(userName, userEmail, userPassword);
+    sessionStorage.setItem("user", JSON.stringify(user));
+    // validation = show user validation and redirect them to login page
+    setTimeout(() => {
+      setPendingRegistration(false);
+    }, 1500);
+    setInterval(() => {
+      user.registrationSuccesspopup();
+      setInterval(() => {
+        window.location = "/login";
+      }, 1500);
+    }, 1600);
   };
-
 
   //----------------------------------------------
 
@@ -78,11 +82,26 @@ const RegisterPage = () => {
               <div className="loginheader">
                 <h3>Welcome to Lilies!</h3>
               </div>
+
               <form
                 className="loginform"
                 id="registerform"
                 onSubmit={handleUserRegistration}
               >
+                <div
+                  className="msg"
+                  style={{
+                    backgroundColor: "mediumseagreen",
+                    color: "white",
+                    marginBottom: "20px",
+                    padding: "10px",
+                    fontSize: "13px",
+                    borderRadius: "5px",
+                    display: "none",
+                  }}
+                >
+                  Registration Successful
+                </div>
                 <input
                   type="text"
                   name="name"
@@ -122,9 +141,16 @@ const RegisterPage = () => {
                 </div>
 
                 <div className="loginbtnwrapper">
-                  <button type="submit" id="registerbtn">
-                    SIGN UP
-                  </button>
+                  {!pendingRegistration && (
+                    <button type="submit" id="registerbtn">
+                      SIGN UP
+                    </button>
+                  )}
+                  {pendingRegistration && (
+                    <button id="registrationBtn" disabled>
+                      Please Wait...
+                    </button>
+                  )}
                 </div>
               </form>
               <div className="other-login">

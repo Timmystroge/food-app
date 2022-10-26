@@ -6,6 +6,8 @@ import RegisterPage from "./Components/Pages/RegisterPage";
 import LoginPage from "./Components/Pages/LoginPage";
 import Forgotpassword from "./Components/Pages/Forgotpassword";
 import Dashboard from "./Components/Pages/dashboard/Dashboard";
+import Error404 from "./Components/Pages/Error404";
+import ProtectedAuth from "./Components/Auth";
 
 function App() {
   return (
@@ -20,11 +22,13 @@ function App() {
             path="/forgotpassword"
             element={<Forgotpassword />}
           ></Route>
-          <Route
-            exact
-            path="/Components/Pages/dashboard/Dashboard"
-            element={<Dashboard />}
-          ></Route>
+          <Route element={<ProtectedAuth />}>
+            <Route
+              path="/Components/Pages/dashboard/Dashboard"
+              element={<Dashboard />}
+            ></Route>
+          </Route>
+          <Route exact path="*" element={<Error404 />}></Route>
         </Routes>
       </Router>
     </div>

@@ -69,107 +69,131 @@ const data = [
 ];
 
 const Dashboard = () => {
+  let user = JSON.parse(sessionStorage.getItem("user"));
+  // setting active nav
   const [activeNav, setActiveNav] = useState("home");
-
+  // menu toggle
   useEffect(() => {
     DashboardMenuToggle();
   }, []);
 
+  // getting time of the day dynamically
+  const now = new Date();
+  let hour = now.getHours();
+  let updatedTime = "";
+  if (hour >= 0 && hour <= 12) {
+    updatedTime = "Good Morning";
+  } else if (hour >= 12 && hour <= 17) {
+    updatedTime = "Good Afternoon";
+  } else {
+    updatedTime = "Good Evening";
+  }
+
   return (
-    <div className="white-bg">
-      <div className="show__nav-menubar">
-        <span className="menubar__toggle">X</span>
-        <div className="menu__bar">
-          <div className="menu__bar-profile-wrapper">
-            <img src={userprofile} alt="userprofile" />
-          </div>
-          <h4>Timmystroge Stroge</h4>
-          <div className="navbar__nav-links">
-            <ul>
-              <Link
-                to="#"
-                onClick={() => setActiveNav("home")}
-                className={activeNav === "home" ? "nav_link-active" : ""}
-              >
-                <Navbuttons icon={homeicon} linkTo={"Dashboard"} />
-              </Link>
-              <Link
-                to="#"
-                onClick={() => setActiveNav("profile")}
-                className={activeNav === "profile" ? "nav_link-active" : ""}
-              >
-                {" "}
-                <Navbuttons icon={profileicon} linkTo={"Your Profile"} />
-              </Link>
-              <Link
-                to="#"
-                onClick={() => setActiveNav("orders")}
-                className={activeNav === "orders" ? "nav_link-active" : ""}
-              >
-                {" "}
-                <Navbuttons icon={ordersicon} linkTo={"Orders"} count={"8"} />
-              </Link>
-              <Link
-                to="#"
-                onClick={() => setActiveNav("cart")}
-                className={activeNav === "cart" ? "nav_link-active" : ""}
-              >
-                {" "}
-                <Navbuttons icon={carticon} linkTo={"Your Cart"} count={"5"} />
-              </Link>
-            </ul>
+    <>
+      <div className="white-bg">
+        <div className="show__nav-menubar">
+          <span className="menubar__toggle">X</span>
+          <div className="menu__bar">
+            <div className="menu__bar-profile-wrapper">
+              <img src={userprofile} alt="userprofile" />
+            </div>
+            <h4>{user.name}</h4>
+            <div className="navbar__nav-links">
+              <ul>
+                <Link
+                  to="#"
+                  onClick={() => setActiveNav("home")}
+                  className={activeNav === "home" ? "nav_link-active" : ""}
+                >
+                  <Navbuttons icon={homeicon} linkTo={"Dashboard"} />
+                </Link>
+                <Link
+                  to="#"
+                  onClick={() => setActiveNav("profile")}
+                  className={activeNav === "profile" ? "nav_link-active" : ""}
+                >
+                  {" "}
+                  <Navbuttons icon={profileicon} linkTo={"Your Profile"} />
+                </Link>
+                <Link
+                  to="#"
+                  onClick={() => setActiveNav("orders")}
+                  className={activeNav === "orders" ? "nav_link-active" : ""}
+                >
+                  {" "}
+                  <Navbuttons icon={ordersicon} linkTo={"Orders"} count={"8"} />
+                </Link>
+                <Link
+                  to="#"
+                  onClick={() => setActiveNav("cart")}
+                  className={activeNav === "cart" ? "nav_link-active" : ""}
+                >
+                  {" "}
+                  <Navbuttons
+                    icon={carticon}
+                    linkTo={"Your Cart"}
+                    count={"5"}
+                  />
+                </Link>
+              </ul>
+            </div>
           </div>
         </div>
+        <main>
+          <div className="dashboard__wrapper">
+            <div className="dashboard__navbar">
+              <Nav />
+            </div>
+            <div className="dashboard">
+              <div className="dashbaord__header">
+                <div className="mobilelogo">
+                  <Link to="#">
+                    <img src={logo} alt="logo" className="logo" />
+                  </Link>
+                </div>
+                <div className="profile">
+                  <h3>
+                    {updatedTime}, {user?.name}
+                  </h3>
+                  <p>What delicious meal are you craving today.?</p>
+                </div>
+                <div className="userprofile">
+                  <Link to="#">
+                    <img src={userprofile} alt="userprofile" />
+                  </Link>
+                  <div className="navbar__burger">Menu</div>
+                </div>
+              </div>
+              {/* products */}
+              <div className="available__products">
+                <div className="available__product-wrapper">
+                  {data.map(({ id, img, name, details, price, add }) => {
+                    return (
+                      <article key={id}>
+                        <div className="prod__img-wrapper">
+                          <img src={img} alt={name} />
+                        </div>
+                        <div className="prod__dets">
+                          <Link to={`desc/${id}`}>
+                            <h2>{name}</h2>
+                          </Link>
+                          <p>{details}</p>
+                        </div>
+                        <div className="prod__price">
+                          <h3>{price}</h3>
+                          <h3>{add}</h3>
+                        </div>
+                      </article>
+                    );
+                  })}
+                </div>
+              </div>
+            </div>
+          </div>
+        </main>
       </div>
-      <main>
-        <div className="dashboard__wrapper">
-          <div className="dashboard__navbar">
-            <Nav />
-          </div>
-          <div className="dashboard">
-            <div className="dashbaord__header">
-              <div className="mobilelogo">
-                <Link to="#">
-                  <img src={logo} alt="logo" className="logo" />
-                </Link>
-              </div>
-              <div className="profile">
-                <h3>Good morning, TimmyStroge!</h3>
-                <p>What delicious meal are you craving today.?</p>
-              </div>
-              <div className="userprofile">
-                <Link to="#">
-                  <img src={userprofile} alt="userprofile" />
-                </Link>
-                <div className="navbar__burger">Menu</div>
-              </div>
-            </div>
-            {/* products */}
-            <div className="available__products">
-              <div className="available__product-wrapper">
-                {data.map(({ id, img, name, details, price, add }) => {
-                  return (
-                    <article key={id}>
-                      <div className="prod__img-wrapper">
-                        <img src={img} alt={name} />
-                      </div>
-                      <div className="prod__dets">
-                        <h2>{name}</h2>
-                        <p>{details}</p>
-                      </div>
-                      <div className="prod__price">
-                        <h3>{price}</h3>
-                        <h3>{add}</h3>
-                      </div>
-                    </article>
-                  );
-                })}
-              </div>
-            </div>
-          </div>
-        </div>
-      </main>
-    </div>
+    </>
   );
 };
 

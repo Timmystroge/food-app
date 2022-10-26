@@ -35,7 +35,6 @@
 .dashboard__navbar .navbar__nav,
 .dashboard .dashbaord__header {
   width: 100%;
-  /* border: 1px solid red; */
   padding: 4rem 0 2rem;
 }
 .dashboard .dashbaord__header {
@@ -122,6 +121,7 @@
 }
 .navbar__nav-links ul a.nav_link-active {
   color: rgb(0, 0, 0);
+  font-weight: 700;
 }
 .navbar__nav-links ul li span {
   display: flex;
@@ -309,9 +309,7 @@
   }
   .menu__bar-profile-wrapper img {
     width: 100%;
-    border: 1px solid var(--mainColor);
     padding: 8px;
-    border-radius: 50%;
   }
   .menu__bar h4 {
     color: var(--mainColor);
@@ -372,6 +370,9 @@
    grid-template-columns: repeat(1, 1fr);
    gap: 2rem;
  }
+ .profile {
+  display: none;
+}
 }
 @media (max-width: 479px) {
   .menu__bar {
@@ -394,9 +395,7 @@
     width: 30px;
     margin-right: 30px;
   }
-  .profile {
-    display: none;
-  }
+ 
   .dashboard .dashbaord__header,
   .available__products {
     padding-left: 15px;
