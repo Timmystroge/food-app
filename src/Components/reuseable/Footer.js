@@ -40,10 +40,7 @@ const Footer = () => {
                   </Link>
                   <Link to="#" onClick={warning}>
                     <li>Contact Us</li>
-                  </Link>
-                  <Link to="/Components/Pages/dashboard/Dashboard">
-                    <li>Dashboard</li>
-                  </Link>
+                  </Link> 
                 </ul>
               </div>
               <div className="support">
@@ -99,7 +96,7 @@ const Footer = () => {
                 <h5>
                   Copyright © <span className="year"></span> LILIES, All rights
                   reserved | Designed & Developed By{" "}
-                  <a href="https://timmyoyetola.tmtech.com.ng">TMtechnology</a>
+                  <a href="https://timmyoyetola.tmtech.com.ng">TM technology</a>
                 </h5>
               </div>
               <div className="socials">

@@ -30,7 +30,7 @@ const LoginPage = () => {
     e.preventDefault();
     let user = JSON.parse(sessionStorage.getItem("user"));
 
-    if (loginEmail !== "" && loginPassword !== "") {
+    if (loginEmail !== " " && loginPassword !== " ") {
       if (loginEmail === user.email && loginPassword === user.password) {
         setTimeout(() => {
           loginMsg("Login Successful! : )");
