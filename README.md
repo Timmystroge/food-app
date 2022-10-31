@@ -1,4 +1,4 @@
-<h3>Live Site @ https://food-app-stroge.netlify.app/ </h3>
+<h3>Live Site @ https://food-app-stroge.vercel.app/ </h3>
 <h4>Oyetola Oluwatimileyin's Portfolio @ <a href="https://timmyoyetola.tmtech.com.ng">TM Technology </a></h4>
 
 
