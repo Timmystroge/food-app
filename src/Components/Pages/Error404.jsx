@@ -10,7 +10,7 @@ const Error404 = () => {
         top: "50%",
         left: "50%",
         transform: "translate(-50%, -50%)",
-        lineHeight: "30px"
+        lineHeight: "30 px"
       }}
     >
       <h2>404 Not Found!</h2>

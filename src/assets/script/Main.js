@@ -9,8 +9,12 @@ const Main = () => {
       let details = [{ email: userEmail, form: "Notify Form" }];
       localStorage.setItem(userEmail, JSON.stringify(details));
       console.log(userEmail);
-      alert("Success! We will notify you with this Email :) " + userEmailCaps );
-      notifyForm.reset();
+      setTimeout(() => {
+        alert(
+          "Success! We'll notify you with this Email : ) " + userEmailCaps
+        );
+        notifyForm.reset();
+      }, 2000);
     });
   };
   getDets();

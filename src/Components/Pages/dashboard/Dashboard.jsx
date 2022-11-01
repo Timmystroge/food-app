@@ -201,7 +201,7 @@ const Dashboard = () => {
         </main>
 
         {/* productdetails modal */}
-        <div className="productDetailsModal">
+        {/* <div className="productDetailsModal">
           <div className="productDetailsModal__content">
             <span className="closeproductDetailsModal">X</span>
             <div className="productDetailsModal__img">
@@ -234,10 +234,10 @@ const Dashboard = () => {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
 
         {/* cart modal */}
-        {/* <div className="cartModal">
+        <div className="cartModal">
           <div className="cartModal__content">
             <div className="cart">
               <h2>Your Cart</h2>
@@ -269,7 +269,7 @@ const Dashboard = () => {
               </div>
             </div>
           </div>
-        </div> */}
+        </div>
 
         {/* checkout modal */}
         {/* <div className="checkoutModal">

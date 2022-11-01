@@ -30,27 +30,32 @@ const LoginPage = () => {
     e.preventDefault();
     let user = JSON.parse(sessionStorage.getItem("user"));
 
-    if (loginEmail !== " " && loginPassword !== " ") {
+    if (loginEmail !== null && loginPassword !== null) {
       if (loginEmail === user.email && loginPassword === user.password) {
         setTimeout(() => {
           loginMsg("Login Successful! : )");
           setTimeout(() => {
             clearloginMsg();
             setTimeout(() => {
-              window.location = '/Components/Pages/dashboard/Dashboard';
-            }, 100)
+              window.location = "/Components/Pages/dashboard/Dashboard";
+            }, 100);
           }, 2000);
         }, 100);
       } else {
         setTimeout(() => {
-          loginError("invalid credentials");
+          loginError("Invalid Login Credentials!");
           setTimeout(() => {
             clearloginError();
           }, 3000);
         }, 100);
       }
     } else {
-      loginError("login details not found");
+      setTimeout(() => {
+        loginError("login details not found!");
+        setTimeout(() => {
+          clearloginError();
+        }, 3000);
+      }, 100);
     }
   };
 

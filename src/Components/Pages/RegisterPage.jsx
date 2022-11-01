@@ -39,9 +39,9 @@ const RegisterPage = () => {
     setTimeout(() => {
       setPendingRegistration(false);
     }, 1500);
-    setInterval(() => {
+    setTimeout(() => {
       user.registrationSuccesspopup();
-      setInterval(() => {
+      setTimeout(() => {
         window.location = "/login";
       }, 1500);
     }, 1600);
