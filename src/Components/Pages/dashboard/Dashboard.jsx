@@ -16,7 +16,6 @@ import dish3 from "../../../assets/img/dish3.svg";
 import dish4 from "../../../assets/img/dish4.svg";
 import dish5 from "../../../assets/img/dish5.svg";
 import dish6 from "../../../assets/img/dish6.svg";
-// eslint-disable-next-line
 import productDetailsImg from "../../../assets/img/specialdish1.svg";
 
 const data = [
@@ -237,42 +236,83 @@ const Dashboard = () => {
         </div> */}
 
         {/* cart modal */}
-        <div className="cartModal">
+        {/* <div className="cartModal">
           <div className="cartModal__content">
             <div className="cart">
               <h2>Your Cart</h2>
               <div className="cartItem__wrapper">
-                <div className="item">
-                  <h5>Item</h5>
-                  <div className="cartproduct___item-wrapper">
-                    <div className="cartproduct___item-img">
-                      <img src={dish1} alt="" />
-                    </div>
-                    <div className="cartproduct__name">
-                      <h3>Stir Fry Pasta</h3>
-                      <p>Remove</p>
-                    </div>
-                  </div>
+                <table>
+                  <tr className="cart__heading-tr">
+                    <th>Item</th>
+                    <th>Qty</th>
+                    <th>Unit Price</th>
+                    <th>Sub-Total</th>
+                  </tr>
+                  <tr className="cart__data-tr">
+                    <td>
+                      <div className="item__dets-wrapper">
+                        <div className="item__dets-Img">
+                          <img src={productDetailsImg} alt="" />
+                        </div>
+                        <div className="item__dets-title">
+                          <p className="fw-bold">Stir Fry Pasta</p>
+                          <small className="text-danger">Remove</small>
+                        </div>
+                      </div>
+                    </td>
+                    <td className="fw-bold">3</td>
+                    <td className="fw-bold">N 1,000.00</td>
+                    <td className="fw-bold">N 3,000.00</td>
+                  </tr>
+                  <tr className="cart__data-tr">
+                    <td>
+                      <div className="item__dets-wrapper">
+                        <div className="item__dets-Img">
+                          <img src={productDetailsImg} alt="" />
+                        </div>
+                        <div className="item__dets-title">
+                          <p className="fw-bold">Stir Fry Pasta</p>
+                          <small className="text-danger">Remove</small>
+                        </div>
+                      </div>
+                    </td>
+                    <td className="fw-bold">3</td>
+                    <td className="fw-bold">N 1,000.00</td>
+                    <td className="fw-bold">N 3,000.00</td>
+                  </tr>
+                  <tr className="cart__data-tr">
+                    <td>
+                      <div className="item__dets-wrapper">
+                        <div className="item__dets-Img">
+                          <img src={productDetailsImg} alt="" />
+                        </div>
+                        <div className="item__dets-title">
+                          <p className="fw-bold">Stir Fry Pasta</p>
+                          <small className="text-danger">Remove</small>
+                        </div>
+                      </div>
+                    </td>
+                    <td className="fw-bold">3</td>
+                    <td className="fw-bold">N 1,000.00</td>
+                    <td className="fw-bold">N 3,000.00</td>
+                  </tr>
+                </table>
+                <div className="cart__item-total">
+                  <p>
+                    Total: <span>N 30,000.00</span>
+                  </p>
                 </div>
-                <div className="item_dets">
-                  <div className="item_dets-desc">
-                    <h5>Qty</h5>
-                    <h5>Unit Price</h5>
-                    <h5>Sub-total</h5>
-                  </div>
-                  <div className="item_dets-product-dets">
-                    <h3>3</h3>
-                    <h3>N 1,000.00</h3>
-                    <h3>N 3,000.00</h3>
-                  </div>
-                </div>
+              </div>
+              <div className="cart__checkoutBtn">
+                <button>Checkout</button>
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
+        {/* cart modal Ends */}
 
         {/* checkout modal */}
-        {/* <div className="checkoutModal">
+        <div className="checkoutModal">
           <div className="checkoutModal__content">
           <span className="closeproductDetailsModal">X</span>
             <div className="checkout">
@@ -316,7 +356,8 @@ const Dashboard = () => {
               </form>
             </div>
           </div>
-        </div> */}
+        </div>
+        {/* checkout modal Ends */}
       </div>
     </>
   );

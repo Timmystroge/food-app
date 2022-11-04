@@ -353,61 +353,83 @@
   min-width: 38rem;
   width: 38rem;
   overflow-y: scroll !important;
+  /* overflow-x: scroll !important; */
 }
 .cart {
   margin-top: 30px;
+  padding: 30px 0;
 }
 .cart h2 {
-  font-size: 14px;
+  font-size: 16px;
+  margin-bottom: 20px;
 }
-.cart .cartItem__wrapper {
-  display: flex;
-  margin-top: 20px;
+/* styles controlling the table */
+.cart__heading-tr th {
+  padding-bottom: 25px;
+  color: rgba(0, 0, 0, 0.69);
+  font-weight: 500;
+  font-size: 13px;
 }
-/* item */
-.cart .cartItem__wrapper .item {
-  width: 50%;
-  border: 1px solid black;
+.cart__data-tr td {
+  padding-bottom: 40px;
 }
-.item h5{
+.cart__heading-tr th,
+.cart__data-tr td {
+  padding-right: 30px;
+}
+.cart__heading-tr th:nth-child(1) {
   text-align: left;
 }
-.cartproduct___item-wrapper {
+.cart__heading-tr th:nth-child(1),
+.cart__data-tr td:nth-child(1) {
+  padding-right: 120px;
+}
+/* styles controlling the table ends */
+.fw-bold {
+  font-weight: 700;
+  font-size: 14px;
+  color: #00302e;
+}
+.text-danger {
+  color: #c92c33;
+  font-weight: 500;
+  font-size: 12px;
+  cursor: pointer;
+}
+.item__dets-wrapper {
   display: flex;
   align-items: center;
 }
-.cartproduct___item-img {
+.item__dets-wrapper .item__dets-Img {
   width: 50px;
+  margin-right: 8px;
 }
-.cartproduct___item-img img{
+.item__dets-wrapper .item__dets-Img img {
   width: 100%;
 }
-.cartproduct__name {
+.item__dets-wrapper .item__dets-title {
   text-align: left;
 }
 
-/* ************* */
-.item h5,
-.item_dets-desc h5 {
-  font-weight: 500;
-  color: rgba(0, 0, 0, 0.69);
+.cart__item-total {
+  position: absolute;
+  text-align: right;
+  right: 75px;
 }
-/* *************** */
-/* item-dets */
-.cart .cartItem__wrapper .item_dets {
-  width: 50%;
-  border: 1px solid blue;
+.cart__item-total p span {
+  font-weight: 700;
+  color: #00302e;
 }
-.item_dets-desc {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.item_dets-product-dets {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+.cart__checkoutBtn button {
+  border: none;
+  display: block;
+  width: 85%;
+  background: var(--mainColor);
+  margin: 70px auto 0;
+  padding: 15px 0;
+  color: #f3c294;
+  cursor: pointer;
+  overflow: hidden;
 }
 
 /* ============================= Media query ======================= */
@@ -612,7 +634,8 @@
     top: 20px;
   }
   .productDetailsModal__content,
-  .checkoutModal__content {
+  .checkoutModal__content,
+  .cartModal__content {
     min-width: 70%;
     width: 70%;
     height: 97%;
