@@ -181,9 +181,9 @@ const Dashboard = () => {
                           <img src={img} alt={name} />
                         </div>
                         <div className="prod__dets">
-                          <Link to={`desc/${id}`}>
-                            <h2>{name}</h2>
-                          </Link>
+                          {/* <Link to={`desc/${id}`}> */}
+                          <h2>{name}</h2>
+                          {/* </Link> */}
                           <p>{details}</p>
                         </div>
                         <div className="prod__price">
@@ -199,8 +199,10 @@ const Dashboard = () => {
           </div>
         </main>
 
+        {/* ========================== MODALS  ========================== */}
+
         {/* productdetails modal */}
-        {/* <div className="productDetailsModal">
+        <div className="productDetailsModal">
           <div className="productDetailsModal__content">
             <span className="closeproductDetailsModal">X</span>
             <div className="productDetailsModal__img">
@@ -233,11 +235,13 @@ const Dashboard = () => {
               </div>
             </div>
           </div>
-        </div> */}
+        </div>
+        {/* productdetails modal ends */}
 
         {/* cart modal */}
-        {/* <div className="cartModal">
+        <div className="cartModal">
           <div className="cartModal__content">
+            <span className="closeproductDetailsModal">X</span>
             <div className="cart">
               <h2>Your Cart</h2>
               <div className="cartItem__wrapper">
@@ -308,13 +312,13 @@ const Dashboard = () => {
               </div>
             </div>
           </div>
-        </div> */}
+        </div>
         {/* cart modal Ends */}
 
         {/* checkout modal */}
         <div className="checkoutModal">
           <div className="checkoutModal__content">
-          <span className="closeproductDetailsModal">X</span>
+            <span className="closeproductDetailsModal">X</span>
             <div className="checkout">
               <h2>Checkout</h2>
               <form action="">
@@ -323,7 +327,7 @@ const Dashboard = () => {
                   className="checkout-control"
                   name="cardname"
                   id="cardname"
-                  placeholder="Card Number" 
+                  placeholder="Card Number"
                   required
                 />
                 <input
@@ -331,7 +335,7 @@ const Dashboard = () => {
                   className="checkout-control"
                   name="expdate"
                   id="expdate"
-                  placeholder="Exp Date" 
+                  placeholder="Exp Date"
                   required
                 />
                 <input
@@ -339,7 +343,7 @@ const Dashboard = () => {
                   className="checkout-control"
                   name="cvv"
                   id="cvv"
-                  placeholder="CVV/CVV2" 
+                  placeholder="CVV/CVV2"
                   required
                 />
                 <input
@@ -347,7 +351,7 @@ const Dashboard = () => {
                   className="checkout-control"
                   name="cardpin"
                   id="cardpin"
-                  placeholder="Card Pin" 
+                  placeholder="Card Pin"
                   required
                 />
                 <div className="checkoutModal__button">
