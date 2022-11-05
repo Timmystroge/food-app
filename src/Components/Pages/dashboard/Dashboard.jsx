@@ -72,8 +72,10 @@ const data = [
 const Dashboard = () => {
   // getting user details from session
   let user = JSON.parse(sessionStorage.getItem("user"));
+
   // setting active nav
   const [activeNav, setActiveNav] = useState("home");
+
   // menu toggle
   useEffect(() => {
     DashboardMenuToggle();
@@ -119,7 +121,6 @@ const Dashboard = () => {
                   onClick={() => setActiveNav("profile")}
                   className={activeNav === "profile" ? "nav_link-active" : ""}
                 >
-                  {" "}
                   <Navbuttons icon={profileicon} linkTo={"Your Profile"} />
                 </Link>
                 <Link
@@ -127,7 +128,6 @@ const Dashboard = () => {
                   onClick={() => setActiveNav("orders")}
                   className={activeNav === "orders" ? "nav_link-active" : ""}
                 >
-                  {" "}
                   <Navbuttons icon={ordersicon} linkTo={"Orders"} count={"8"} />
                 </Link>
                 <Link
@@ -135,7 +135,6 @@ const Dashboard = () => {
                   onClick={() => setActiveNav("cart")}
                   className={activeNav === "cart" ? "nav_link-active" : ""}
                 >
-                  {" "}
                   <Navbuttons
                     icon={carticon}
                     linkTo={"Your Cart"}
