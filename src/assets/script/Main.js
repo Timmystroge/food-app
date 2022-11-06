@@ -14,7 +14,7 @@ const Main = () => {
           "Success! We'll notify you with this Email : ) " + userEmailCaps
         );
         notifyForm.reset();
-      }, 2000);
+      }, 1000);
     });
   };
   getDets();
