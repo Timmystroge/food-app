@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
-import Nav from "./Nav";
+// import Nav from "./Nav";
 import "./dashboard.css";
 import userprofile from "../../../assets/img/userprofile.svg";
 import { Link } from "react-router-dom";
 import logo from "../../../assets/icons/logo/logo-icon.svg";
+import dashboardlogo from "../../../assets/icons/logo/dashboardlogo.svg";
 import Navbuttons from "./Navbuttons";
 import homeicon from "../../../assets/icons/homeicon.svg";
 import profileicon from "../../../assets/icons/profileicon.svg";
@@ -93,9 +94,72 @@ const Dashboard = () => {
     updatedTime = "Good Evening";
   }
 
-  // ProductsDetails modal popup
-  // const productDetailsModal = document.querySelector(".productDetailsModal");
-  // console.log(productDetailsModal);
+  // ===== MODAL FUNCTIONALITY =====
+  // getting all modals(total 4)
+  // let checkOutModal = document.querySelector(".checkoutModal");
+  // let orderModal = document.querySelector(".yourOrder");
+
+  const [qty, setQty] = useState(1);
+  const increaseQty = () => {
+    setQty(qty + 1);
+    if (qty >= 10) {
+      setQty(10);
+    }
+  };
+  const decreaseQty = () => {
+    setQty(qty - 1);
+    if (qty <= 1) {
+      setQty(1);
+    }
+  };
+
+  const addProduct = () => {
+    // making productmodal visible
+    let productModal = document.querySelector(".productDetailsModal");
+    productModal.style.display = "block";
+
+    // removing visibility if productModal overlay is clicked
+    productModal.addEventListener("click", (e) => {
+      let target = e.target;
+      if (
+        target.getAttribute("class") === "productDetailsModal" ||
+        target.getAttribute("class") === "closeproductDetailsModal"
+      ) {
+        productModal.style.display = "none";
+      }
+    });
+  };
+
+  const cartModal = () => {
+    // set Active nav to cart
+    setActiveNav("cart");
+
+    // making cartModal visible
+    let cartModal = document.querySelector(".cartModal");
+    let navMenu = document.querySelector(".show__nav-menubar");
+    let menuBar = document.querySelector(".menu__bar");
+
+    // close show__nav-menubar and menu__bar if cartModal is open
+    navMenu.style.display = "none";
+    menuBar.style.left = "-100%";
+
+    //open cartModal
+    cartModal.style.display = "block";
+
+    // removing visibility if cartModal overlay || closeproductDetailsModal is clicked
+    cartModal.addEventListener("click", (e) => {
+      let target = e.target;
+      if (
+        target.getAttribute("class") === "cartModal" ||
+        target.getAttribute("class") === "closeproductDetailsModal"
+      ) {
+        cartModal.style.display = "none";
+        // if cart Modal is closed, set active nav back to dashboard
+        setActiveNav("home");
+      }
+    });
+  };
+  // ===== MODAL FUNCTIONALITY =====
 
   return (
     <>
@@ -132,7 +196,7 @@ const Dashboard = () => {
                 </Link>
                 <Link
                   to="#"
-                  onClick={() => setActiveNav("cart")}
+                  onClick={cartModal}
                   className={activeNav === "cart" ? "nav_link-active" : ""}
                 >
                   <Navbuttons
@@ -148,7 +212,61 @@ const Dashboard = () => {
         <main>
           <div className="dashboard__wrapper">
             <div className="dashboard__navbar">
-              <Nav />
+              {/* <Nav /> */}
+              <nav id="navbar__menu">
+                <div className="navbar__nav">
+                  <div className="dashbaord__logo-wrapper">
+                    <Link to="#">
+                      <img src={dashboardlogo} alt="logo" className="logo" />
+                    </Link>
+                  </div>
+                </div>
+                <div className="navbar__nav-links">
+                  <ul>
+                    <Link
+                      to="#"
+                      onClick={() => setActiveNav("home")}
+                      className={activeNav === "home" ? "nav_link-active" : ""}
+                    >
+                      <Navbuttons icon={homeicon} linkTo={"Dashboard"} />
+                    </Link>
+                    <Link
+                      to="#"
+                      onClick={() => setActiveNav("profile")}
+                      className={
+                        activeNav === "profile" ? "nav_link-active" : ""
+                      }
+                    >
+                      <Navbuttons icon={profileicon} linkTo={"Your Profile"} />
+                    </Link>
+                    <Link
+                      to="#"
+                      onClick={() => setActiveNav("orders")}
+                      className={
+                        activeNav === "orders" ? "nav_link-active" : ""
+                      }
+                    >
+                      <Navbuttons
+                        icon={ordersicon}
+                        linkTo={"Orders"}
+                        count={"8"}
+                      />
+                    </Link>
+                    <Link
+                      to="#"
+                      onClick={cartModal}
+                      className={activeNav === "cart" ? "nav_link-active" : ""}
+                      id="cart"
+                    >
+                      <Navbuttons
+                        icon={carticon}
+                        linkTo={"Your Cart"}
+                        count={"5"}
+                      />
+                    </Link>
+                  </ul>
+                </div>
+              </nav>
             </div>
             <div className="dashboard">
               <div className="dashbaord__header">
@@ -187,7 +305,9 @@ const Dashboard = () => {
                         </div>
                         <div className="prod__price">
                           <h3>{price}</h3>
-                          <h3>{add}</h3>
+                          <h3 className="addProduct" onClick={addProduct}>
+                            {add}
+                          </h3>
                         </div>
                       </article>
                     );
@@ -225,9 +345,9 @@ const Dashboard = () => {
             </div>
             <div className="addItemToCart">
               <div className="counter">
-                <span>-</span>
-                <h2>3</h2>
-                <span>+</span>
+                <span onClick={decreaseQty}>-</span>
+                <h2>{qty}</h2>
+                <span onClick={increaseQty}>+</span>
               </div>
               <div className="addToCartBtn">
                 <button>Add to cart</button>
@@ -245,60 +365,64 @@ const Dashboard = () => {
               <h2>Your Cart</h2>
               <div className="cartItem__wrapper">
                 <table>
-                  <tr className="cart__heading-tr">
-                    <th>Item</th>
-                    <th>Qty</th>
-                    <th>Unit Price</th>
-                    <th>Sub-Total</th>
-                  </tr>
-                  <tr className="cart__data-tr">
-                    <td>
-                      <div className="item__dets-wrapper">
-                        <div className="item__dets-Img">
-                          <img src={productDetailsImg} alt="" />
+                  <thead className="cart__heading-tr">
+                    <tr>
+                      <th>Item</th>
+                      <th>Qty</th>
+                      <th>Unit Price</th>
+                      <th>Sub-Total</th>
+                    </tr>
+                  </thead>
+                  <tbody className="cart__data-tr">
+                    <tr>
+                      <td>
+                        <div className="item__dets-wrapper">
+                          <div className="item__dets-Img">
+                            <img src={productDetailsImg} alt="" />
+                          </div>
+                          <div className="item__dets-title">
+                            <p className="fw-bold">Stir Fry Pasta</p>
+                            <small className="text-danger">Remove</small>
+                          </div>
                         </div>
-                        <div className="item__dets-title">
-                          <p className="fw-bold">Stir Fry Pasta</p>
-                          <small className="text-danger">Remove</small>
+                      </td>
+                      <td className="fw-bold">3</td>
+                      <td className="fw-bold">N 1,000.00</td>
+                      <td className="fw-bold">N 3,000.00</td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <div className="item__dets-wrapper">
+                          <div className="item__dets-Img">
+                            <img src={productDetailsImg} alt="" />
+                          </div>
+                          <div className="item__dets-title">
+                            <p className="fw-bold">Stir Fry Pasta</p>
+                            <small className="text-danger">Remove</small>
+                          </div>
                         </div>
-                      </div>
-                    </td>
-                    <td className="fw-bold">3</td>
-                    <td className="fw-bold">N 1,000.00</td>
-                    <td className="fw-bold">N 3,000.00</td>
-                  </tr>
-                  <tr className="cart__data-tr">
-                    <td>
-                      <div className="item__dets-wrapper">
-                        <div className="item__dets-Img">
-                          <img src={productDetailsImg} alt="" />
+                      </td>
+                      <td className="fw-bold">3</td>
+                      <td className="fw-bold">N 1,000.00</td>
+                      <td className="fw-bold">N 3,000.00</td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <div className="item__dets-wrapper">
+                          <div className="item__dets-Img">
+                            <img src={productDetailsImg} alt="" />
+                          </div>
+                          <div className="item__dets-title">
+                            <p className="fw-bold">Stir Fry Pasta</p>
+                            <small className="text-danger">Remove</small>
+                          </div>
                         </div>
-                        <div className="item__dets-title">
-                          <p className="fw-bold">Stir Fry Pasta</p>
-                          <small className="text-danger">Remove</small>
-                        </div>
-                      </div>
-                    </td>
-                    <td className="fw-bold">3</td>
-                    <td className="fw-bold">N 1,000.00</td>
-                    <td className="fw-bold">N 3,000.00</td>
-                  </tr>
-                  <tr className="cart__data-tr">
-                    <td>
-                      <div className="item__dets-wrapper">
-                        <div className="item__dets-Img">
-                          <img src={productDetailsImg} alt="" />
-                        </div>
-                        <div className="item__dets-title">
-                          <p className="fw-bold">Stir Fry Pasta</p>
-                          <small className="text-danger">Remove</small>
-                        </div>
-                      </div>
-                    </td>
-                    <td className="fw-bold">3</td>
-                    <td className="fw-bold">N 1,000.00</td>
-                    <td className="fw-bold">N 3,000.00</td>
-                  </tr>
+                      </td>
+                      <td className="fw-bold">3</td>
+                      <td className="fw-bold">N 1,000.00</td>
+                      <td className="fw-bold">N 3,000.00</td>
+                    </tr>
+                  </tbody>
                 </table>
                 <div className="cart__item-total">
                   <p>
@@ -313,6 +437,95 @@ const Dashboard = () => {
           </div>
         </div>
         {/* cart modal Ends */}
+
+        {/* Your Order modal */}
+        {/* <div className="yourOrder">
+          <div className="yourOrder__content">
+            <span className="closeproductDetailsModal">X</span>
+            <div className="cart">
+              <h2>Your Order</h2>
+              <div className="cartItem__wrapper">
+                <table>
+                  <thead className="cart__heading-tr">
+                  <tr>
+                    <th>Item</th>
+                    <th>Qty</th>
+                    <th>Price</th>
+                    <th>Status</th>
+                    </tr>
+                  </thead>
+                  <tbody className="cart__data-tr">
+                  <tr>
+                    <td>
+                      <div className="item__dets-wrapper">
+                        <div className="item__dets-Img">
+                          <img src={productDetailsImg} alt="" />
+                        </div>
+                        <div className="item__dets-title">
+                          <p className="fw-bold">Stir Fry Pasta</p>
+                          <small className="text-danger">Remove</small>
+                        </div>
+                      </div>
+                    </td>
+                    <td className="fw-bold">3</td>
+                    <td className="fw-bold">N 1,000.00</td>
+                    <td className="fw-light">Delivered</td>
+                    </tr>
+                  <tr>
+                    <td>
+                      <div className="item__dets-wrapper">
+                        <div className="item__dets-Img">
+                          <img src={productDetailsImg} alt="" />
+                        </div>
+                        <div className="item__dets-title">
+                          <p className="fw-bold">Stir Fry Pasta</p>
+                          <small className="text-danger">Remove</small>
+                        </div>
+                      </div>
+                    </td>
+                    <td className="fw-bold">3</td>
+                    <td className="fw-bold">N 1,000.00</td>
+                    <td className="fw-light">Delivered</td>
+                    </tr>
+                  <tr>
+                    <td>
+                      <div className="item__dets-wrapper">
+                        <div className="item__dets-Img">
+                          <img src={productDetailsImg} alt="" />
+                        </div>
+                        <div className="item__dets-title">
+                          <p className="fw-bold">Stir Fry Pasta</p>
+                          <small className="text-danger">Remove</small>
+                        </div>
+                      </div>
+                    </td>
+                    <td className="fw-bold">3</td>
+                    <td className="fw-bold">N 1,000.00</td>
+                    <td className="fw-light">Delivered</td>
+                    </tr>
+                  <tr>
+                    <td>
+                      <div className="item__dets-wrapper">
+                        <div className="item__dets-Img">
+                          <img src={productDetailsImg} alt="" />
+                        </div>
+                        <div className="item__dets-title">
+                          <p className="fw-bold">Stir Fry Pasta</p>
+                          <small className="text-danger">Remove</small>
+                        </div>
+                      </div>
+                    </td>
+                    <td className="fw-bold">3</td>
+                    <td className="fw-bold">N 1,000.00</td>
+                    <td className="fw-light">Delivered</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div> */}
+        {/* Your Order modal Ends */}
 
         {/* checkout modal */}
         <div className="checkoutModal">
