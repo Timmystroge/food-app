@@ -1,3 +1,4 @@
+
 .white-bg {
   background: rgb(255, 255, 255);
 }
@@ -21,6 +22,7 @@
   width: 80%;
   height: 100%;
   position: relative;
+  user-select: none;
 }
 .navbar__burger,
 .mobilelogo {
@@ -225,6 +227,7 @@
   top: 0;
   left: 0;
   overflow-y: hidden;
+  user-select: none;
 }
 /* ******** */
 .productDetailsModal__content,
@@ -238,6 +241,7 @@
   position: absolute;
   right: 0;
   top: 0;
+  overflow-y : scroll;
   animation-name: modalSlideIn;
   animation-duration: 200ms;
   animation-timing-function: ease;
@@ -292,6 +296,7 @@
 /* addItemToCart */
 .addItemToCart {
   margin-top: 30px;
+  padding-bottom: 40px;
   display: flex;
   justify-content: space-between;
   align-items: center;
