@@ -1,3 +1,31 @@
+.notificationMsg {
+  width: max-content;
+  height: max-content;
+  z-index: 99999999999;
+  background: white;
+  position: fixed;
+  padding: 20px 15px;
+  top: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+  margin: 0 10px;
+  font-weight: 700;
+  font-size: 14px;
+  border-radius: 10px;
+  border-left: 1px solid var(--mainColor);
+  border-right: 1px solid var(--mainColor);
+  border-bottom: 1px solid var(--mainColor);
+  transition: all 200ms ease;
+  animation-duration: 200ms;
+  animation-timing-function: ease;
+  animation-name: notificationMsg;
+  display: none;
+}
+@keyframes notificationMsg {
+  from {top: -50px;}
+  to {top: 50px;}
+}
+
 
 .white-bg {
   background: rgb(255, 255, 255);
@@ -537,6 +565,11 @@
   }
 }
 @media (max-width: 767px) {
+  .notificationMsg {
+    width: 90%;
+    left: 47%;
+    transform: translateX(-50%);
+  }
   #navbar__menu {
     display: none;
   }
@@ -806,6 +839,7 @@
 }
 
 @media (max-width: 425px) {
+ 
   .menu__bar {
     min-width: 70%;
     width: 70%;

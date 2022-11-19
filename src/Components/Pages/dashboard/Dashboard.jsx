@@ -9,9 +9,10 @@ import homeicon from "../../../assets/icons/homeicon.svg";
 import profileicon from "../../../assets/icons/profileicon.svg";
 import ordersicon from "../../../assets/icons/ordersicon.svg";
 import carticon from "../../../assets/icons/carticon.svg";
+import logout from "../../../assets/icons/logout.svg";
 import { DashboardMenuToggle } from "../../../assets/script/Main";
 import DashboardMenus from "./DashboardMenus";
-import productDetailsImg from "../../../assets/img/specialdish1.svg";
+// import productDetailsImg from "../../../assets/img/specialdish1.svg";
 
 const Dashboard = () => {
   // getting user details from session
@@ -19,6 +20,16 @@ const Dashboard = () => {
 
   // setting active nav
   const [activeNav, setActiveNav] = useState("home");
+
+  let defaultMenu = {
+    img: "",
+    name: "",
+    details: "",
+    price: "",
+  };
+
+  //cart functionality
+  const [click, setClick] = useState(defaultMenu);
 
   // menu toggle
   useEffect(() => {
@@ -36,35 +47,35 @@ const Dashboard = () => {
   } else {
     updatedTime = "Good Evening";
   }
+
   // Dashboard user profile
   const profile = () => {
     setActiveNav("profile");
-    let msg = alert("Profile Page Is Yet to Be Completed!");
+    // let msg = alert("Profile Page Is Yet to Be Completed!");
+    let msg = notify(
+      "Profile Page Is Yet to Be Completed! Email developer - Timmystroge75@gmail.com",
+      "red"
+    );
     if (!msg) {
       setActiveNav("home");
     }
   };
 
+  // NOTIFICATION MSG
+  let notify = (text, response) => {
+    let notificationMsg = document.querySelector(".notificationMsg");
+    notificationMsg.style.display = "block";
+    notificationMsg.style.borderTop = `5px solid ${response}`;
+    notificationMsg.textContent = text;
+
+    // remove notification msg
+    setTimeout(() => {
+      notificationMsg.style.display = "none";
+    }, 5000);
+  };
+
   // ===== MODAL FUNCTIONALITY START =====
   // getting all modals(total 4)
-  //cart functionality
-  const [click, setClick] = useState();
-
-  const [qty, setQty] = useState(1);
-  const increaseQty = () => {
-    setQty(qty + 1);
-    if (qty >= 10) {
-      setQty(10);
-    }
-  };
-  const decreaseQty = () => {
-    setQty(qty - 1);
-    if (qty <= 1) {
-      setQty(1);
-    }
-  };
-
- 
 
   const addProduct = (card) => {
     // making productmodal visible
@@ -85,6 +96,21 @@ const Dashboard = () => {
     //getting and displaying the current info that's clicked.
     setClick(card);
   };
+
+  const [qty, setQty] = useState(1);
+  const increaseQty = () => {
+    setQty(qty + 1);
+    if (qty >= 10) {
+      setQty(10);
+    }
+  };
+  const decreaseQty = () => {
+    setQty(qty - 1);
+    if (qty <= 1) {
+      setQty(1);
+    }
+  };
+
   // CART ARRAY
   const [cartArray, setCartArray] = React.useState([]);
 
@@ -99,19 +125,117 @@ const Dashboard = () => {
       subtotal: qty * click.unitprice,
     };
     if (qty !== 0) {
-      setCartArray((previousState) => {
-        return [...previousState, newCart];
+      setCartArray((list) => {
+        return [...list, newCart];
       });
-      alert(
-        "Item added to cart succesfully. Please click on 'Your Cart' from the navigation bar to find your cart items"
+      // display notification msg
+      notify(
+        "Item has been added to cart succesfully. You can keep shopping or proceed to checkout",
+        "mediumseagreen"
       );
+      // remove addproduct modal when an item has been added to cart
+      let productModal = document.querySelector(".productDetailsModal");
+      productModal.style.display = "none";
+      // set item quantity back to 1
       setQty(1);
     } else {
-      return alert("Please specify a quantity");
+      // this might not ever need to run, Default quantity is 1
+      // display notification msg
+      notify("Please specify a quantity", "red");
     }
   };
   localStorage.setItem("food", JSON.stringify(cartArray));
-  // console.log(click.name)
+
+  //SHOW CART ITEMS
+  const cartData = JSON.parse(localStorage.getItem("food"));
+  //
+  const priceArray = cartData.map((item) => item.subtotal);
+  //
+  let sum = 0;
+  for (let num of priceArray) {
+    sum = sum + num;
+  }
+
+  // REMOVING A FOOD FROM CART
+  const removeItemFromCart = (menuItem) => {
+    let filteredCartList = cartArray.filter((list) => {
+      return list.id !== menuItem.id;
+    });
+    notify("Item removed!", "red");
+    setCartArray(filteredCartList);
+  };
+
+  // Checking Out
+  const checkout = () => {
+    if (cartArray.length === 0) {
+      // display notification msg
+      notify("You can't check out an Empty Cart! Please ad an Item", "red");
+    } else {
+      // making cartModal visible //open cartModal
+      let cartModal = document.querySelector(".cartModal");
+      cartModal.style.display = "none";
+
+      let checkoutModal = document.querySelector(".checkoutModal");
+      checkoutModal.style.display = "block";
+
+      // removing visibility if checkoutModal overlay || closeproductDetailsModal is clicked
+      checkoutModal.addEventListener("click", (e) => {
+        let target = e.target;
+        if (
+          target.getAttribute("class") === "checkoutModal" ||
+          target.getAttribute("class") === "closeproductDetailsModal"
+        ) {
+          checkoutModal.style.display = "none";
+          // set Active nav to cart
+          setActiveNav("home");
+        }
+      });
+    }
+  };
+
+  // CHECK OUT PAYMENT DETAILS
+  const [cardname, setCardname] = useState("");
+  const [expdate, setExpdate] = useState("");
+  const [cvv, setCvv] = useState("");
+  const [cardpin, setCardpin] = useState("");
+
+  const handlePaymentSubmit = (e) => {
+    e.preventDefault();
+    const payment = {
+      cardname: cardname,
+      expdate: expdate,
+      cvv: cvv,
+      cardpin: cardpin,
+    };
+    console.log(payment);
+    // insert to db
+    window.localStorage.setItem("orders", JSON.stringify(cartArray));
+
+    // remove checkout modaal
+    let checkoutModal = document.querySelector(".checkoutModal");
+    checkoutModal.style.display = "none";
+
+    // display notification msg
+    notify("Payment Successful! Your Order is on it way : )", "mediuseagreen");
+    setTimeout(() => {
+      window.location = "/Components/Pages/dashboard/Dashboard";
+    }, 1000);
+  };
+
+  // ORDERS PLACED DATA FROM BACKEND
+  const [allOrders, setAllorders] = React.useState(
+    JSON.parse(localStorage.getItem("orders"))
+  );
+
+  // remove order
+  const removeOrder = (item) => {
+    let filteredOrders = allOrders.filter((list) => {
+      return list.id !== item.id;
+    });
+    notify("Order removed!", "red");
+    setAllorders(filteredOrders);
+  };
+  window.localStorage.setItem("orders", JSON.stringify(allOrders));
 
   //! close show__nav-menubar and menu__bar if cartModal is open
   const closeShowMenuBarOnModalClose = () => {
@@ -126,22 +250,28 @@ const Dashboard = () => {
     // close show__nav-menubar and menu__bar if cartModal is open
     closeShowMenuBarOnModalClose();
 
-    // making cartModal visible //open cartModal
-    let cartModal = document.querySelector(".cartModal");
-    cartModal.style.display = "block";
+    if (cartArray.length === 0) {
+      // display notification msg
+      notify("Please add an Item to your Cart!", "red");
+      setActiveNav("home");
+    } else {
+      // making cartModal visible //open cartModal
+      let cartModal = document.querySelector(".cartModal");
+      cartModal.style.display = "block";
 
-    // removing visibility if cartModal overlay || closeproductDetailsModal is clicked
-    cartModal.addEventListener("click", (e) => {
-      let target = e.target;
-      if (
-        target.getAttribute("class") === "cartModal" ||
-        target.getAttribute("class") === "closeproductDetailsModal"
-      ) {
-        cartModal.style.display = "none";
-        // if cart Modal is closed, set active nav back to dashboard
-        setActiveNav("home");
-      }
-    });
+      // removing visibility if cartModal overlay || closeproductDetailsModal is clicked
+      cartModal.addEventListener("click", (e) => {
+        let target = e.target;
+        if (
+          target.getAttribute("class") === "cartModal" ||
+          target.getAttribute("class") === "closeproductDetailsModal"
+        ) {
+          cartModal.style.display = "none";
+          // if cart Modal is closed, set active nav back to dashboard
+          setActiveNav("home");
+        }
+      });
+    }
   };
 
   const yourOrder = () => {
@@ -150,24 +280,29 @@ const Dashboard = () => {
 
     // close show__nav-menubar and menu__bar if cartModal is open
     closeShowMenuBarOnModalClose();
+    if (allOrders.length === 0) {
+      // alert("You do not have any order! Plesae place an Order");
+      notify("You do not have any order! Please place an Order", "red");
+      setActiveNav("home");
+    } else {
+      // making norder modal visible // open orderModal
+      let yourOrderModal = document.querySelector(".yourOrder");
+      yourOrderModal.style.display = "block";
 
-    // making norder modal visible // open orderModal
-    let yourOrderModal = document.querySelector(".yourOrder");
-    yourOrderModal.style.display = "block";
-
-    // removing visibility if cartModal overlay || closeproductDetailsModal is clicked
-    yourOrderModal.addEventListener("click", (e) => {
-      let target = e.target;
-      if (
-        target.getAttribute("class") === "yourOrder" ||
-        target.getAttribute("class") === "closeproductDetailsModal"
-      ) {
-        // do something
-        yourOrderModal.style.display = "none";
-        // if cart Modal is closed, set active nav back to dashboard
-        setActiveNav("home");
-      }
-    });
+      // removing visibility if cartModal overlay || closeproductDetailsModal is clicked
+      yourOrderModal.addEventListener("click", (e) => {
+        let target = e.target;
+        if (
+          target.getAttribute("class") === "yourOrder" ||
+          target.getAttribute("class") === "closeproductDetailsModal"
+        ) {
+          // do something
+          yourOrderModal.style.display = "none";
+          // if cart Modal is closed, set active nav back to dashboard
+          setActiveNav("home");
+        }
+      });
+    }
   };
   // ===== MODAL FUNCTIONALITY ENDS =====
 
@@ -202,7 +337,11 @@ const Dashboard = () => {
                   onClick={yourOrder}
                   className={activeNav === "orders" ? "nav_link-active" : ""}
                 >
-                  <Navbuttons icon={ordersicon} linkTo={"Orders"} count={"8"} />
+                  <Navbuttons
+                    icon={ordersicon}
+                    linkTo={"Orders"}
+                    count={allOrders && allOrders.length}
+                  />
                 </Link>
                 <Link
                   to="#"
@@ -212,8 +351,14 @@ const Dashboard = () => {
                   <Navbuttons
                     icon={carticon}
                     linkTo={"Your Cart"}
-                    count={"5"}
+                    count={cartArray && cartArray.length}
                   />
+                </Link>
+                <Link
+                  to="/"
+                  className={activeNav === "logout" ? "nav_link-active" : ""}
+                >
+                  <Navbuttons icon={"=>"} linkTo={"LogOut"} count={""} />
                 </Link>
               </ul>
             </div>
@@ -258,7 +403,7 @@ const Dashboard = () => {
                       <Navbuttons
                         icon={ordersicon}
                         linkTo={"Orders"}
-                        count={"8"}
+                        count={allOrders && allOrders.length}
                       />
                     </Link>
                     <Link
@@ -269,14 +414,25 @@ const Dashboard = () => {
                       <Navbuttons
                         icon={carticon}
                         linkTo={"Your Cart"}
-                        count={"5"}
+                        count={cartArray && cartArray.length}
                       />
+                    </Link>
+                    <Link
+                      to="/"
+                      className={
+                        activeNav === "logout" ? "nav_link-active" : ""
+                      }
+                    >
+                      <Navbuttons icon={logout} linkTo={"LogOut"} count={""} />
                     </Link>
                   </ul>
                 </div>
               </nav>
             </div>
             <div className="dashboard">
+              <div className="notificationMsg">
+                <p></p>
+              </div>
               <div className="dashbaord__header">
                 <div className="mobilelogo">
                   <Link to="#">
@@ -338,15 +494,13 @@ const Dashboard = () => {
             <div className="productDetailsModal__content">
               <span className="closeproductDetailsModal">X</span>
               <div className="productDetailsModal__img">
-                <img src={productDetailsImg} alt="productDetailsModal__img" />
+                <img src={click.img} alt="productDetailsModal__img" />
               </div>
               <div className="productDetailsModal__description">
-                <h2>Stir Fry Pasta</h2>
-                <p>1 Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto rem quaerat unde libero illum minus perspiciatis nisi hic veniam obcaecati odit amet perferendis dicta reprehenderit id, et velit? Rerum tempora suscipit ad ullam iusto assumenda eum aperiam quam. Doloribus laudantium, provident blanditiis assumenda aliquam obcaecati quam expedita pariatur corporis. Ratione.</p>
-                <p>2. Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto rem quaerat unde libero illum minus perspiciatis nisi hic veniam obcaecati odit amet perferendis dicta reprehenderit id, et velit? Rerum tempora suscipit ad ullam iusto assumenda eum aperiam quam. Doloribus laudantium, provident blanditiis assumenda aliquam obcaecati quam expedita pariatur corporis. Ratione.</p>
-                <p>3. Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto rem quaerat unde libero illum minus perspiciatis nisi hic veniam obcaecati odit amet perferendis dicta reprehenderit id, et velit? Rerum tempora suscipit ad ullam iusto assumenda eum aperiam quam. Doloribus laudantium, provident blanditiis assumenda aliquam obcaecati quam expedita pariatur corporis. Ratione.</p>
+                <h2>{click.name}</h2>
+                <p>{click.details}</p>
                 <div className="productDetailsModal__breakdown">
-                  <h2>NGN 1, 000</h2>
+                  <h2>{click.price}</h2>
                   <h2>10-20 Mins</h2>
                   <h2>10 Pcs Avail</h2>
                 </div>
@@ -383,64 +537,63 @@ const Dashboard = () => {
                     </tr>
                   </thead>
                   <tbody className="cart__data-tr">
-                    <tr>
-                      <td>
-                        <div className="item__dets-wrapper">
-                          <div className="item__dets-Img">
-                            <img src={productDetailsImg} alt="" />
-                          </div>
-                          <div className="item__dets-title">
-                            <p className="fw-bold">Stir Fry Pasta</p>
-                            <small className="text-danger">Remove</small>
-                          </div>
-                        </div>
-                      </td>
-                      <td className="fw-bold">3</td>
-                      <td className="fw-bold">N 1,000.00</td>
-                      <td className="fw-bold">N 3,000.00</td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <div className="item__dets-wrapper">
-                          <div className="item__dets-Img">
-                            <img src={productDetailsImg} alt="" />
-                          </div>
-                          <div className="item__dets-title">
-                            <p className="fw-bold">Stir Fry Pasta</p>
-                            <small className="text-danger">Remove</small>
-                          </div>
-                        </div>
-                      </td>
-                      <td className="fw-bold">3</td>
-                      <td className="fw-bold">N 1,000.00</td>
-                      <td className="fw-bold">N 3,000.00</td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <div className="item__dets-wrapper">
-                          <div className="item__dets-Img">
-                            <img src={productDetailsImg} alt="" />
-                          </div>
-                          <div className="item__dets-title">
-                            <p className="fw-bold">Stir Fry Pasta</p>
-                            <small className="text-danger">Remove</small>
-                          </div>
-                        </div>
-                      </td>
-                      <td className="fw-bold">3</td>
-                      <td className="fw-bold">N 1,000.00</td>
-                      <td className="fw-bold">N 3,000.00</td>
-                    </tr>
+                    {cartArray &&
+                      cartArray.map((item, index) => {
+                        return (
+                          <>
+                            <tr key={index}>
+                              <td>
+                                <div className="item__dets-wrapper">
+                                  <div className="item__dets-Img">
+                                    <img src={item.foodimg} alt="" />
+                                  </div>
+                                  <div className="item__dets-title">
+                                    <p className="fw-bold">{item.foodname}</p>
+                                    <small
+                                      className="text-danger"
+                                      onClick={() => removeItemFromCart(item)}
+                                    >
+                                      Remove
+                                    </small>
+                                  </div>
+                                </div>
+                              </td>
+                              <td className="fw-bold">{item.quantity}</td>
+                              <td className="fw-bold">
+                                N
+                                {item.unitprice.toLocaleString(undefined, {
+                                  maximumFractionDigits: 2,
+                                })}
+                              </td>
+                              <td className="fw-bold">
+                                N
+                                {(
+                                  item.quantity * item.unitprice
+                                ).toLocaleString(undefined, {
+                                  maximumFractionDigits: 2,
+                                })}
+                              </td>
+                            </tr>
+                          </>
+                        );
+                      })}
                   </tbody>
                 </table>
                 <div className="cart__item-total">
                   <p>
-                    Total: <span>N 30,000.00</span>
+                    Total:{" "}
+                    <span>
+                      N
+                      {sum.toLocaleString(undefined, {
+                        maximumFractionDigits: 2,
+                      })}
+                      .00
+                    </span>
                   </p>
                 </div>
               </div>
               <div className="cart__checkoutBtn">
-                <button>Checkout</button>
+                <button onClick={checkout}>Checkout</button>
               </div>
             </div>
           </div>
@@ -464,70 +617,44 @@ const Dashboard = () => {
                     </tr>
                   </thead>
                   <tbody className="cart__data-tr">
-                    <tr>
-                      <td>
-                        <div className="item__dets-wrapper">
-                          <div className="item__dets-Img">
-                            <img src={productDetailsImg} alt="" />
-                          </div>
-                          <div className="item__dets-title">
-                            <p className="fw-bold">Stir Fry Pasta</p>
-                            <small className="text-danger">Remove</small>
-                          </div>
-                        </div>
-                      </td>
-                      <td className="fw-bold">3</td>
-                      <td className="fw-bold">N 1,000.00</td>
-                      <td className="fw-light">Delivered</td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <div className="item__dets-wrapper">
-                          <div className="item__dets-Img">
-                            <img src={productDetailsImg} alt="" />
-                          </div>
-                          <div className="item__dets-title">
-                            <p className="fw-bold">Stir Fry Pasta</p>
-                            <small className="text-danger">Remove</small>
-                          </div>
-                        </div>
-                      </td>
-                      <td className="fw-bold">3</td>
-                      <td className="fw-bold">N 1,000.00</td>
-                      <td className="fw-light">Delivered</td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <div className="item__dets-wrapper">
-                          <div className="item__dets-Img">
-                            <img src={productDetailsImg} alt="" />
-                          </div>
-                          <div className="item__dets-title">
-                            <p className="fw-bold">Stir Fry Pasta</p>
-                            <small className="text-danger">Remove</small>
-                          </div>
-                        </div>
-                      </td>
-                      <td className="fw-bold">3</td>
-                      <td className="fw-bold">N 1,000.00</td>
-                      <td className="fw-light">Delivered</td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <div className="item__dets-wrapper">
-                          <div className="item__dets-Img">
-                            <img src={productDetailsImg} alt="" />
-                          </div>
-                          <div className="item__dets-title">
-                            <p className="fw-bold">Stir Fry Pasta</p>
-                            <small className="text-danger">Remove</small>
-                          </div>
-                        </div>
-                      </td>
-                      <td className="fw-bold">3</td>
-                      <td className="fw-bold">N 1,000.00</td>
-                      <td className="fw-light">Delivered</td>
-                    </tr>
+                    {allOrders &&
+                      allOrders.map((item, index) => {
+                        return (
+                          <>
+                            <tr key={index}>
+                              <td>
+                                <div className="item__dets-wrapper">
+                                  <div className="item__dets-Img">
+                                    <img src={item.foodimg} alt="" />
+                                  </div>
+                                  <div className="item__dets-title">
+                                    <p className="fw-bold">{item.foodname}</p>
+                                    <small
+                                      className="text-danger"
+                                      onClick={() => removeOrder(item)}
+                                    >
+                                      Remove
+                                    </small>
+                                  </div>
+                                </div>
+                              </td>
+                              <td className="fw-bold">{item.quantity}</td>
+                              <td className="fw-bold">
+                                N
+                                {item.unitprice.toLocaleString(undefined, {
+                                  maximumFractionDigits: 2,
+                                })}
+                              </td>
+                              <td
+                                className="fw-light"
+                                style={{ color: "mediumseagreen" }}
+                              >
+                                Delivered
+                              </td>
+                            </tr>
+                          </>
+                        );
+                      })}
                   </tbody>
                 </table>
               </div>
@@ -537,12 +664,12 @@ const Dashboard = () => {
         {/* Your Order modal Ends */}
 
         {/* checkout modal */}
-        {/* <div className="checkoutModal">
+        <div className="checkoutModal">
           <div className="checkoutModal__content">
             <span className="closeproductDetailsModal">X</span>
             <div className="checkout">
               <h2>Checkout</h2>
-              <form action="">
+              <form onSubmit={handlePaymentSubmit}>
                 <input
                   type="tel"
                   className="checkout-control"
@@ -550,14 +677,18 @@ const Dashboard = () => {
                   id="cardname"
                   placeholder="Card Number"
                   required
+                  value={cardname}
+                  onChange={(e) => setCardname(e.target.value)}
                 />
                 <input
                   type="tel"
                   className="checkout-control"
                   name="expdate"
                   id="expdate"
-                  placeholder="Exp Date"
+                  placeholder="02/20"
                   required
+                  value={expdate}
+                  onChange={(e) => setExpdate(e.target.value)}
                 />
                 <input
                   type="tel"
@@ -566,6 +697,8 @@ const Dashboard = () => {
                   id="cvv"
                   placeholder="CVV/CVV2"
                   required
+                  value={cvv}
+                  onChange={(e) => setCvv(e.target.value)}
                 />
                 <input
                   type="tel"
@@ -574,6 +707,8 @@ const Dashboard = () => {
                   id="cardpin"
                   placeholder="Card Pin"
                   required
+                  value={cardpin}
+                  onChange={(e) => setCardpin(e.target.value)}
                 />
                 <div className="checkoutModal__button">
                   <button type="submit">Make Payment</button>
@@ -581,7 +716,7 @@ const Dashboard = () => {
               </form>
             </div>
           </div>
-        </div> */}
+        </div>
         {/* checkout modal Ends */}
       </div>
     </>
