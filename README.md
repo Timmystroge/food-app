@@ -1,5 +1,5 @@
 
-<p>This app will never charge your card 💳, don't be afraid! </p>
+<p>This app will never pull or charge your card 💳, don't be afraid! </p>
 <hr>
 ===> Timmystroge <br>
 ===> Tm Technologygy </a></h4>
