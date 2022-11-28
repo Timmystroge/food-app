@@ -1,5 +1,8 @@
-<h3>Live Site @ https://food-app-stroge.vercel.app/ </h3>
-<h4>Designed and Developed by @ <a href="https://timmyoyetola.tmtech.com.ng" target="_blank">TM Technology </a></h4>
+
+<p>This app will never charge your card 💳, don't be afraid! </p>
+<hr>
+===> Timmystroge <br>
+===> Tm Technologygy </a></h4>
 
 
 # Getting Started with Create React App
